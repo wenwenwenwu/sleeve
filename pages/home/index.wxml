@@ -1,0 +1,23 @@
+<!--pages/home/index.wxml-->
+<l-loadmore show type="{{hasMore?'loading':'end'}}">
+	<view slot="content" class="container" >
+		<image  class="top-theme" src="{{themeA.entrance_img}}"></image>
+		<swiper indicator-dots indicator-active-color="#157658" autoplay circular>
+			<block wx:for="{{bannerB.items}}" wx:key="index">
+				<swiper-item>
+					<image class="swiper-img" src="{{item.img}}"></image>
+				</swiper-item>
+			</block>
+		</swiper>
+		<c-category-grid grid="{{grid}}" />
+		<image class="activity" src="{{activityD.entrance_img}}"></image>
+		<c-spu-scroll wx:if="{{themeE.online}}" theme="{{themeE}}" spu-list="{{themeESPU}}" />
+		<image class="quality" src="{{themeF.entrance_img}}"></image>
+		<c-hot-list banner="{{bannerG}}" />
+		<image class="fashion" src="{{themeH.entrance_img}}"></image>
+		<view class="spu-bottom">
+			<image class="title-spu-bottom" src="/images/home/title@interest.png"></image>
+			<l-water-flow generic:l-water-flow-item="c-spu-preview"></l-water-flow>
+		</view>
+	</view>
+</l-loadmore>

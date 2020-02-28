@@ -1,0 +1,17 @@
+<!--components/spu-scroll/index.wxml-->
+<wxs src="../../miniprogram_npm/lin-ui/filter/string.wxs" module="s"></wxs>
+<wxs src="../../wxs/price.wxs" module="p"></wxs>
+<view class="container">
+	<image class="title-img" src="{{theme.title_img}}"></image>
+	<scroll-view class="scroll-view" enable-flex scroll-x>
+		<view class="spu-container">
+			<block wx:for="{{spuList}}" wx:key="index">
+				<view class="spu-item-container">
+					<image class="spu-img" src="{{item.img}}"></image>
+					<text class="spu-text">{{item.title.length>=8?s.substring(item.title,0,7)+'...':item.title}}</text>
+					<l-price l-value-class="price" l-unit-class="price-unit" value="{{p.mainPrice(item.price, item.discount_price)}}" />
+				</view>
+			</block>
+		</view>
+	</scroll-view>
+</view>

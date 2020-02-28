@@ -1,0 +1,47 @@
+/* pages/home/index.wxss */
+
+.top-theme {
+  width: 750rpx;
+  height: 260rpx;
+  display: flex;
+}
+
+.swiper-img {
+  width: 750rpx;
+  height: 360rpx;
+}
+
+
+.activity{
+  width: 750rpx;
+  height: 310rpx;
+  display: flex;
+  margin: 20rpx 0rpx;
+}
+
+.quality{
+  width: 750rpx;
+  height: 880rpx;
+  display: flex;
+  margin: 20rpx 0rpx;
+}
+
+.fashion{
+  width: 750rpx;
+  height: 880rpx;
+  display: flex;
+  margin: 20rpx 0rpx;
+}
+
+.spu-bottom{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-spu-bottom{
+  width: 690rpx;
+  height: 70rpx;
+  margin: 34rpx 0rpx;
+}

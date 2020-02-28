@@ -1,0 +1,50 @@
+/* components/spu-scroll/index.wxss */
+.container{
+  background-color: white;
+  padding: 42rpx 0rpx 34rpx 28rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-img{
+  width: 694rpx;
+  height: 90rpx;
+}
+
+.scroll-view{
+  margin-top: 28rpx;
+}
+
+.spu-container{
+  display: flex;
+  flex-direction: row;
+}
+
+
+.spu-item-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 60rpx;
+}
+
+.spu-img{
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.spu-text{
+  color: #666666;
+  font-size: 20rpx;
+  /* margin-top: 20rpx; */
+}
+
+.price{
+  color: #157658 !important;
+  font-size: 26rpx !important;
+}
+
+.price-unit{
+  color: #157658 !important;
+  font-size: 24rpx !important;
+}

@@ -1,0 +1,29 @@
+/* components/category-grid/index.wxss */
+.container {
+  background-color: white;
+  padding: 10rpx;
+}
+
+.inner-container {
+  border: 1rpx dashed #dcebe6;
+}
+
+.grid-item {
+  width: 150rpx;
+  height: 150rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.img{
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.text{
+  color: #333333;
+  font-size: 24rpx;
+  margin-top: 6rpx;
+}
