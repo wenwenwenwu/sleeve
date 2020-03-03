@@ -1,4 +1,4 @@
-class ArrayTransformer {
+class SpecArrayUtil {
   /**
    * 原始数组数据结构
    * [货品1,货品2,货品3,货品4]
@@ -40,5 +40,5 @@ class ArrayTransformer {
 }
 
 export {
-  ArrayTransformer
+  SpecArrayUtil
 }

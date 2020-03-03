@@ -1,6 +1,6 @@
 import {
-  ArrayTransformer
-} from "./array-transformer"
+  SpecArrayUtil
+} from "./spec-array-util"
 import {
   Fence
 } from "./fence"
@@ -18,8 +18,8 @@ class FenceGroup {
 
   _initFence() {
     const rawSpecArray = this._creatRawSpecsArray()
-    const arrayTransformer = new ArrayTransformer(rawSpecArray)
-    const specsArray = arrayTransformer.transpose()
+    const specArrayUtil = new SpecArrayUtil(rawSpecArray)
+    const specsArray = specArrayUtil.transpose()
     const fences = []
     specsArray.forEach((specs) => {
       const fence = new Fence(specs)
@@ -28,7 +28,7 @@ class FenceGroup {
     this.fences = fences
   }
 
-  _creatRawSpecsArray(){
+  _creatRawSpecsArray() {
     const rawSpecArray = []
     this.skuList.forEach(sku => {
       rawSpecArray.push(sku.specs)

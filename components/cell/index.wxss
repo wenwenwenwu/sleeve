@@ -1,9 +1,30 @@
 /* components/cell/index.wxss */
 .container{
+  font-size: 24rpx;
   border: 2rpx solid #333333;
+  padding: 2rpx;
 }
 
 .inner-container{
   background-color: white;
-  padding: 6rpx 15rpx;
+  padding: 9rpx 15rpx;
+}
+
+.forbidden{
+  color: #bbbbbb;
+  border: 2rpx dashed #bbbbbb;
+}
+
+.s-outer{
+  border: 2rpx solid #157658;
+  color: white;
+}
+
+.s-inner{
+  background-color: #157658;
+
+}
+
+.selected{
+
 }

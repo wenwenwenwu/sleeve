@@ -1,10 +1,15 @@
+// import {
+//   CellStatus
+// } from "../../core/enum.js"
+
 // components/cell/index.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    model: Object
+    model: Object,
+    status: Object
   },
 
   /**
@@ -18,6 +23,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    onTap(event) {
+      this.triggerEvent("onTap")
+    }
   }
 })
