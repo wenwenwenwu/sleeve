@@ -4,11 +4,11 @@
 		<image></image>
 
 	</view>
-	<block wx:for="{{}}" wx:key="index">
-		<c-fence>
-			</c-fence>
+	<block wx:for="{{fences}}" wx:key="index">
+		<c-fence model="{{item}}">
+		</c-fence>
 	</block>
-<view class="counter-container">
+	<view class="counter-container">
 
-</view>
+	</view>
 </view>

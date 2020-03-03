@@ -1,15 +1,11 @@
 class ArrayTransformer {
   /**
-   * 数组结构
+   * 原始数组数据结构
    * [货品1,货品2,货品3,货品4]
    * 货品结构
    * [颜色,图案,尺码]
    */
   complexSpecArray
-
-  constructor(complexSpecArray) {
-    this.complexSpecArray = complexSpecArray
-  }
 
   get goodNum() {
     return this.complexSpecArray.length
@@ -19,8 +15,12 @@ class ArrayTransformer {
     return this.complexSpecArray[0].length
   }
 
+  constructor(complexSpecArray) {
+    this.complexSpecArray = complexSpecArray
+  }
+
   /**
-   * 数组结构
+   * 目标数组数据结构
    * [颜色,图案,尺码]
    * 货品结构
    * [货品1颜色,货品2颜色,货品3颜色,货品4颜色]

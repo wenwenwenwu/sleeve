@@ -1,4 +1,4 @@
 <!--pages/detail/index.wxml-->
 <view class="container">
-<c-realm spu="{{spu}}"></c-realm>
+	<c-realm spu="{{spu}}"></c-realm>
 </view>

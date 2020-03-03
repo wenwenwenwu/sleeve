@@ -8,13 +8,15 @@ import {
 class FenceGroup {
   spu
   skuList
+  fences
 
   constructor(spu) {
     this.spu = spu
     this.skuList = spu.sku_list
+    this._initFence()
   }
 
-  initFence() {
+  _initFence() {
     const rawSpecArray = this._creatRawSpecsArray()
     const arrayTransformer = new ArrayTransformer(rawSpecArray)
     const specsArray = arrayTransformer.transpose()
@@ -23,7 +25,7 @@ class FenceGroup {
       const fence = new Fence(specs)
       fences.push(fence)
     })
-    console.log(fences)
+    this.fences = fences
   }
 
   _creatRawSpecsArray(){

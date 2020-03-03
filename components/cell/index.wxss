@@ -1,0 +1,9 @@
+/* components/cell/index.wxss */
+.container{
+  border: 2rpx solid #333333;
+}
+
+.inner-container{
+  background-color: white;
+  padding: 6rpx 15rpx;
+}
