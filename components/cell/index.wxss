@@ -1,30 +1,34 @@
 /* components/cell/index.wxss */
-.container{
-  font-size: 24rpx;
-  border: 2rpx solid #333333;
+.container {
   padding: 2rpx;
 }
 
-.inner-container{
-  background-color: white;
+.content-container{
+  font-size: 24rpx;
   padding: 9rpx 15rpx;
 }
 
-.forbidden{
-  color: #bbbbbb;
+.outer-selectable{
+  border: 2rpx solid #333333;
+}
+
+.inner-selectable {
+  color: #333333;
+}
+
+.outer-forbidden {
   border: 2rpx dashed #bbbbbb;
 }
 
-.s-outer{
-  color: white;
+.inner-forbidden{
+  color: #bbbbbb;
+}
+
+.outer-selected {
   border: 2rpx solid #157658;
 }
 
-.s-inner{
+.inner-selected {
   background-color: #157658;
-
-}
-
-.selected{
   color: white;
 }

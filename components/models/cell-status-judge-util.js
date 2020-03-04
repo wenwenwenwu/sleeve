@@ -23,11 +23,15 @@ class CellStatusJudgeUtil {
   }
 
   judge(model, row, line) {
-    if (model.status === CellStatus.WAITING) {
+    this._changeCurrentCellStatus(model, row, line)
+  }
+
+  _changeCurrentCellStatus(model, row, line) {
+    if (model.status === CellStatus.SELECTABLE) {
       this.fenceGroup.fences[row].cells[line].status = CellStatus.SELECTED
     }
     if (model.status === CellStatus.SELECTED) {
-      this.fenceGroup.fences[row].cells[line].status = CellStatus.WAITING
+      this.fenceGroup.fences[row].cells[line].status = CellStatus.SELECTABLE
     }
   }
 

@@ -48,8 +48,6 @@ Component({
       const model = event.detail.model
       const row = event.detail.row
       const line = event.detail.line
-      console.log(row)
-      console.log(line)
       const cellStatusJudgeUtil = this.data.cellStatusJudgeUtil
       cellStatusJudgeUtil.judge(model, row, line)
       this.setData({

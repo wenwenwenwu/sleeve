@@ -1,6 +1,6 @@
 <!--components/cell/index.wxml-->
 <view class="container {{c.statusStyle(model.status).outer}}" bindtap="onTap">
-	<view class="inner-container {{c.statusStyle(model.status).inner}}">
+	<view class="content-container {{c.statusStyle(model.status).inner}}">
 		<text>{{model.title}}</text>
 	</view>
 </view>
@@ -9,14 +9,20 @@
 	function statusStyle(status) {
 		if (status === "forbidden") {
 			return {
-				outer:"forbidden",
-				inner:""
+				outer: "outer-forbidden",
+				inner: "inner-forbidden"
+			}
+		}
+		if (status === "selectable") {
+			return {
+				outer: "outer-selectable",
+				inner: "inner-selectable"
 			}
 		}
 		if (status === "selected") {
 			return {
-				outer:"s-outer",
-				inner:"s-inner"
+				outer: "outer-selected",
+				inner: "inner-selected"
 			}
 		}
 	}
