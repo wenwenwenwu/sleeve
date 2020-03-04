@@ -3,7 +3,7 @@
 	<text class="title">{{model.title}}</text>
 	<view class="row-container">
 		<block wx:for="{{model.cells}}" wx:key="index">
-			<c-cell class="cell" model="{{item}}" />
+			<c-cell class="cell" model="{{item}}" row="{{row}}" line="{{index}}"/>
 		</block>
 	</view>
 	<view class="line"></view>

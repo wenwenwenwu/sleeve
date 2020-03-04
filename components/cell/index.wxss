@@ -16,8 +16,8 @@
 }
 
 .s-outer{
-  border: 2rpx solid #157658;
   color: white;
+  border: 2rpx solid #157658;
 }
 
 .s-inner{
@@ -26,5 +26,5 @@
 }
 
 .selected{
-
+  color: white;
 }

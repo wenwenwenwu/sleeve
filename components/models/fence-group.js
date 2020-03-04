@@ -1,6 +1,6 @@
 import {
-  SpecArrayUtil
-} from "./spec-array-util"
+  SpecArrayConvertUtil
+} from "./spec-array-convert-util"
 import {
   Fence
 } from "./fence"
@@ -18,8 +18,8 @@ class FenceGroup {
 
   _initFence() {
     const rawSpecArray = this._creatRawSpecsArray()
-    const specArrayUtil = new SpecArrayUtil(rawSpecArray)
-    const specsArray = specArrayUtil.transpose()
+    const specArrayConvertUtil = new SpecArrayConvertUtil(rawSpecArray)
+    const specsArray = specArrayConvertUtil.transpose()
     const fences = []
     specsArray.forEach((specs) => {
       const fence = new Fence(specs)

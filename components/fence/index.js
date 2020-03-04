@@ -4,7 +4,8 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    model: Object
+    model: Object,
+    row: Number
   },
 
   /**
@@ -18,6 +19,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    
   }
 })

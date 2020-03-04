@@ -1,7 +1,3 @@
-// import {
-//   CellStatus
-// } from "../../core/enum.js"
-
 // components/cell/index.js
 Component({
   /**
@@ -9,7 +5,9 @@ Component({
    */
   properties: {
     model: Object,
-    status: Object
+    status: Object,
+    row: Number,
+    line: Number
   },
 
   /**
@@ -24,7 +22,14 @@ Component({
    */
   methods: {
     onTap(event) {
-      this.triggerEvent("onTap")
+      this.triggerEvent("onTap", {
+        model: this.properties.model,
+        row: this.properties.row,
+        line: this.properties.line
+      }, {
+        bubbles: true,
+        composed: true
+      })
     }
   }
 })

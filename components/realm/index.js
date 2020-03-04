@@ -2,8 +2,8 @@ import {
   FenceGroup
 } from "../models/fence-group"
 import {
-  Judger
-} from "../models/judger"
+  CellStatusJudgeUtil
+} from "../models/cell-status-judge-util"
 
 // components/realm/index.js
 Component({
@@ -12,14 +12,14 @@ Component({
    */
   properties: {
     spu: Object,
-    fences: Array
+    fences: Array,
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-
+    cellStatusJudgeUtil: Object
   },
 
   observers: {
@@ -28,7 +28,7 @@ Component({
         return
       }
       const fenceGroup = new FenceGroup(spu)
-      const judger = new Judger(fenceGroup)
+      this.data.cellStatusJudgeUtil = new CellStatusJudgeUtil(fenceGroup)
       this.bindInitData(fenceGroup)
     }
   },
@@ -42,6 +42,20 @@ Component({
         fences: fenceGroup.fences
       })
       console.log(this.data.fences)
-    }
+    },
+
+    onCellTap(event) {
+      const model = event.detail.model
+      const row = event.detail.row
+      const line = event.detail.line
+      console.log(row)
+      console.log(line)
+      const cellStatusJudgeUtil = this.data.cellStatusJudgeUtil
+      cellStatusJudgeUtil.judge(model, row, line)
+      this.setData({
+        fences: cellStatusJudgeUtil.fenceGroup.fences
+      })
+    },
+
   }
 })
