@@ -1,7 +1,7 @@
 <!--components/cell/index.wxml-->
 <view class="container {{c.statusStyle(model.status).outer}}" bindtap="onTap">
 	<view class="content-container {{c.statusStyle(model.status).inner}}">
-		<text>{{model.valueID}}</text>
+		<text>{{model.value}}</text>
 	</view>
 </view>
 

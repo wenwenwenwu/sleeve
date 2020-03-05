@@ -11,7 +11,7 @@ class Fence {
   constructor(index, specs) {
     this.index = index
     this.id = specs[0].key_id
-    this.title = specs[0].key_id
+    this.title = specs[0].key
     this._initCells(specs)
   }
 
