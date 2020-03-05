@@ -5,90 +5,92 @@ import {
   CellStatus
 } from "../../core/enum"
 import {
-  SkuPending
-} from "./sku-pending"
+  SelectUtil
+} from "./select-util"
 import {
   Joiner
 } from "../../utils/joiner"
 
 class CellStatusJudgeUtil {
   fenceGroup
-  pathDict = []
-  skuPending
+  selectableCodeArray = []
+  selectUtil
 
   constructor(fenceGroup) {
     this.fenceGroup = fenceGroup
     this._initPathDict()
-    this._initSkuPending()
-  }
-
-  _initSkuPending() {
-    this.skuPending = new SkuPending()
+    this.selectUtil = new SelectUtil()
   }
 
   _initPathDict() {
-    this.fenceGroup.spu.sku_list.forEach((sku) => {
+    this.fenceGroup.skuList.forEach((sku) => {
       const skuCodeSeparateUtil = new SkuCodeSeparateUtil(sku.code)
-      this.pathDict = this.pathDict.concat(skuCodeSeparateUtil.possibleCodeArray)
+      const selectableCodeArray = skuCodeSeparateUtil.getSelectableCodeArray()
+      this.selectableCodeArray = this.selectableCodeArray.concat(selectableCodeArray)
     })
-    console.log(this.pathDict)
+    console.log(this.selectableCodeArray)
   }
 
-  judge(model, row, line) {
-    this._changeCurrentCellStatus(model, row, line)
-    this._miao()
+  judge(cellModel) {
+    this._changeSelectStatus(cellModel)
+    this._enumerateFences((cellModelItem)=>{
+      this._changeSelectableStatus(cellModelItem)
+    })
   }
 
-  _changeCurrentCellStatus(model, row, line) {
-    if (model.status === CellStatus.SELECTABLE) {
+  _changeSelectStatus(cellModel) {
+    const status = cellModel.status
+    const row = cellModel.row
+    const line = cellModel.line
+    if (status === CellStatus.SELECTABLE) {
       this.fenceGroup.fences[row].cells[line].status = CellStatus.SELECTED
-      this.skuPending.insertCell(model, row)
+      this.selectUtil.select(cellModel)
     }
-    if (model.status === CellStatus.SELECTED) {
+    if (status === CellStatus.SELECTED) {
       this.fenceGroup.fences[row].cells[line].status = CellStatus.SELECTABLE
-      this.skuPending.removeCell(row)
+      this.selectUtil.unSelect(cellModel)
     }
   }
 
-  _changeOtherCellStatus(cell, x, y) {
-    const path = this._findPotentialPath(cell, x, y)
-    console.log(path)
-    if (!path){
-      return
-    }
-    const isIn = this.pathDict.includes(path)
-    if (isIn) {
-      this.fenceGroup.fences[x].cells[y].status = CellStatus.SELECTABLE
-    } else {
-      this.fenceGroup.fences[x].cells[y].status = CellStatus.FORBIDDEN
-    }
-  }
-
-  _miao() {
+  _enumerateFences(callBack) {
     const fences = this.fenceGroup.fences
-    for (let i = 0; i < fences.length; i++) {
-      for (let j = 0; j < fences[i].cells.length; j++) {
-        const cell = fences[i].cells[j]
-        this._changeOtherCellStatus(cell, i, j)
+    for (let row = 0; row < fences.length; row++) {
+      for (let line = 0; line < fences[row].cells.length; line++) {
+        const cellModel = fences[row].cells[line]
+        callBack(cellModel)
       }
     }
   }
 
-  _findPotentialPath(cell, x, y) {
-    const joiner = new Joiner("#", )
-    for (let i = 0; i < this.fenceGroup.fences.length; i++) {
-      const selected = this.skuPending.findSelectedCellByX(i)
-      if (x === i) {
-        if(this.skuPending.isSelected(cell,x)){
-          return
+  _changeSelectableStatus(cellModel) {
+    const row = cellModel.row
+    const line = cellModel.line
+    const specCode = this._creatSpecCode(cellModel)
+    if (!specCode) {
+      return
+    }
+    const isSelectable = this.selectableCodeArray.includes(specCode)
+    if (isSelectable) {
+      this.fenceGroup.fences[row].cells[line].status = CellStatus.SELECTABLE
+    } else {
+      this.fenceGroup.fences[row].cells[line].status = CellStatus.FORBIDDEN
+    }
+  }
+
+  _creatSpecCode(cellModel) {
+    const currentRow = cellModel.row
+    const joiner = new Joiner("#")
+    for (let row = 0; row < this.fenceGroup.fences.length; row++) {
+      if (currentRow === row) {
+        if (this.selectUtil.isSelected(cellModel)) {
+          return null
         }
-        //当前行
-        const cellCode = this._getCellCode(cell.spec)
+        const cellCode = this._getCellCode(cellModel)
         joiner.join(cellCode)
       } else {
-        //其他行
-        if (selected) {
-          const selectedCellCode = this._getCellCode(selected.spec)
+        const cellModel = this.selectUtil.getRowSelectedCellModel(row)
+        if (cellModel) {
+          const selectedCellCode = this._getCellCode(cellModel)
           joiner.join(selectedCellCode)
         }
       }
@@ -96,8 +98,8 @@ class CellStatusJudgeUtil {
     return joiner.getStr()
   }
 
-  _getCellCode(spec) {
-    return `${spec.key_id}-${spec.value_id}`
+  _getCellCode(cellModel) {
+    return `${cellModel.keyID}-${cellModel.valueID}`
   }
 
 }

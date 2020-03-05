@@ -5,18 +5,18 @@ class SpecArrayConvertUtil {
    * 货品结构
    * [颜色,图案,尺码]
    */
-  complexSpecArray
+  _rawSpecArray
 
   get goodNum() {
-    return this.complexSpecArray.length
+    return this._rawSpecArray.length
   }
 
   get specNum() {
-    return this.complexSpecArray[0].length
+    return this._rawSpecArray[0].length
   }
 
-  constructor(complexSpecArray) {
-    this.complexSpecArray = complexSpecArray
+  constructor(rawSpecArray) {
+    this._rawSpecArray = rawSpecArray
   }
 
   /**
@@ -26,12 +26,12 @@ class SpecArrayConvertUtil {
    * [货品1颜色,货品2颜色,货品3颜色,货品4颜色]
    */
   // 目标数组与原数组相当于进行了矩阵转置
-  transpose() {
+  getSpecArray() {
     const desArray = []
     for (let specIndex = 0; specIndex < this.specNum; specIndex++) { //列变行
       desArray[specIndex] = []
       for (let goodIndex = 0; goodIndex < this.goodNum; goodIndex++) {
-        desArray[specIndex][goodIndex] = this.complexSpecArray[goodIndex][specIndex]
+        desArray[specIndex][goodIndex] = this._rawSpecArray[goodIndex][specIndex]
       }
     }
     return desArray

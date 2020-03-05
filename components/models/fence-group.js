@@ -6,12 +6,10 @@ import {
 } from "./fence"
 
 class FenceGroup {
-  spu
   skuList
   fences
 
   constructor(spu) {
-    this.spu = spu
     this.skuList = spu.sku_list
     this._initFence()
   }
@@ -19,10 +17,10 @@ class FenceGroup {
   _initFence() {
     const rawSpecArray = this._creatRawSpecsArray()
     const specArrayConvertUtil = new SpecArrayConvertUtil(rawSpecArray)
-    const specsArray = specArrayConvertUtil.transpose()
+    const specsArray = specArrayConvertUtil.getSpecArray()
     const fences = []
-    specsArray.forEach((specs) => {
-      const fence = new Fence(specs)
+    specsArray.forEach((specs,index) => {
+      const fence = new Fence(index,specs)
       fences.push(fence)
     })
     this.fences = fences

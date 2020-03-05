@@ -5,15 +5,14 @@ import {
 class SkuCodeSeparateUtil {
   _code
   _spuAndSpec
-  possibleCodeArray = []
 
   constructor(code) {
     this._code = code //2$1-45#3-9#4-14
     this._spuAndSpec = code.split("$")
-    this._initPossibleCodeArray()
   }
 
-  _initPossibleCodeArray() {
+  getSelectableCodeArray() {
+    let selectableCodeArray = []
     const specCode = this._spuAndSpec[1]
     const specCodeArray = specCode.split("#")
     const length = specCodeArray.length
@@ -26,13 +25,14 @@ class SkuCodeSeparateUtil {
       })
       //例:["1-45#3-9","1-45#4-14","3-9#4-14"]
 
-      this.possibleCodeArray = this.possibleCodeArray.concat(newSegments)
+      selectableCodeArray = selectableCodeArray.concat(newSegments)
     }
+    return selectableCodeArray
   }
 
 
 }
 
 export {
-  SkuCodeSeparateUtil 
+  SkuCodeSeparateUtil
 }

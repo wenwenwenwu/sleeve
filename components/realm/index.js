@@ -46,10 +46,8 @@ Component({
 
     onCellTap(event) {
       const model = event.detail.model
-      const row = event.detail.row
-      const line = event.detail.line
       const cellStatusJudgeUtil = this.data.cellStatusJudgeUtil
-      cellStatusJudgeUtil.judge(model, row, line)
+      cellStatusJudgeUtil.judge(model)
       this.setData({
         fences: cellStatusJudgeUtil.fenceGroup.fences
       })

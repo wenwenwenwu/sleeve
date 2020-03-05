@@ -1,3 +1,7 @@
+import {
+  CellStatus
+} from "../../core/enum"
+
 // components/cell/index.js
 Component({
   /**
@@ -5,9 +9,7 @@ Component({
    */
   properties: {
     model: Object,
-    status: Object,
-    row: Number,
-    line: Number
+    status: Object
   },
 
   /**
@@ -22,10 +24,12 @@ Component({
    */
   methods: {
     onTap(event) {
+      if (this.properties.status === CellStatus.FORBIDDEN) {
+        return
+      }
+      const model = this.properties.model
       this.triggerEvent("onTap", {
-        model: this.properties.model,
-        row: this.properties.row,
-        line: this.properties.line
+        model
       }, {
         bubbles: true,
         composed: true

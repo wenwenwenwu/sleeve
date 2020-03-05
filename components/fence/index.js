@@ -5,7 +5,6 @@ Component({
    */
   properties: {
     model: Object,
-    row: Number
   },
 
   /**
