@@ -41,15 +41,14 @@ Component({
       this.setData({
         fences: fenceGroup.fences
       })
-      console.log(this.data.fences)
     },
 
     onCellTap(event) {
       const model = event.detail.model
       const cellStatusJudgeUtil = this.data.cellStatusJudgeUtil
-      cellStatusJudgeUtil.judge(model)
+      const fences = cellStatusJudgeUtil.judge(model)
       this.setData({
-        fences: cellStatusJudgeUtil.fenceGroup.fences
+        fences
       })
     },
 

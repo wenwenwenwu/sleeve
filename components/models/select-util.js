@@ -1,5 +1,5 @@
 class SelectUtil {
-  selectCellModels = []
+  selectCellModels = [] //按行储存选中数据
 
   select(cellModel) {
     const row = cellModel.row

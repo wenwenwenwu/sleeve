@@ -36,6 +36,7 @@ class CellStatusJudgeUtil {
     this._enumerateFences((cellModelItem)=>{
       this._changeSelectableStatus(cellModelItem)
     })
+    return this.fenceGroup.fences
   }
 
   _changeSelectStatus(cellModel) {
@@ -65,8 +66,8 @@ class CellStatusJudgeUtil {
   _changeSelectableStatus(cellModel) {
     const row = cellModel.row
     const line = cellModel.line
-    const specCode = this._creatSpecCode(cellModel)
-    if (!specCode) {
+    const specCode = this._creatSpecCode(cellModel) //根据已选中cellModel和当前cellModel确定
+    if (!specCode) { //specCode返回空(即当前选中的cell)不用改变状态
       return
     }
     const isSelectable = this.selectableCodeArray.includes(specCode)
@@ -82,23 +83,24 @@ class CellStatusJudgeUtil {
     const joiner = new Joiner("#")
     for (let row = 0; row < this.fenceGroup.fences.length; row++) {
       if (currentRow === row) {
-        if (this.selectUtil.isSelected(cellModel)) {
+        if (this.selectUtil.isSelected(cellModel)) { //当前cell就是选中cell返回空
           return null
         }
-        const cellCode = this._getCellCode(cellModel)
-        joiner.join(cellCode)
+        const cellCode = this._getSpecCode(cellModel)
+        joiner.join(cellCode) //拼接当前cell的specCode
       } else {
-        const cellModel = this.selectUtil.getRowSelectedCellModel(row)
-        if (cellModel) {
-          const selectedCellCode = this._getCellCode(cellModel)
-          joiner.join(selectedCellCode)
+        const selectedCellModel = this.selectUtil.getRowSelectedCellModel(row)
+        if (selectedCellModel) {
+          const specCode = this._getSpecCode(selectedCellModel)
+          joiner.join(specCode) //拼接已选中的specCode
+
         }
       }
     }
     return joiner.getStr()
   }
 
-  _getCellCode(cellModel) {
+  _getSpecCode(cellModel) {
     return `${cellModel.keyID}-${cellModel.valueID}`
   }
 

@@ -24,9 +24,6 @@ Component({
    */
   methods: {
     onTap(event) {
-      if (this.properties.status === CellStatus.FORBIDDEN) {
-        return
-      }
       const model = this.properties.model
       this.triggerEvent("onTap", {
         model
