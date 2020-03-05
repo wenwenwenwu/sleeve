@@ -1,12 +1,24 @@
 <!--components/realm/index.wxml-->
 <view class="container">
-	<view>
-		<image></image>
+	<view class="sku-preview">
+		<image class="sku-img" src=""></image>
+		<view class="sku-description">
+			<text class="title">测试sku</text>
+			<view class="">
+				<view class="price-row">
+					<l-price value="777" color="#157658" value-size="28" unit-size="20" autofix />
+					<l-price deleted value="999" color="#999999" value-size="26" l-class="discount-price" autofix />
+				</view>
+				<view class="sku-pending">
+					<text >请选择</text>
+				</view>
+			</view>
 
+		</view>
 	</view>
+	<view class="hl"></view>
 	<block wx:for="{{fences}}" wx:key="index">
-		<c-fence model="{{item}}" bind:onTap="onCellTap">
-		</c-fence>
+		<c-fence model="{{item}}" bind:onTap="onCellTap" />
 	</block>
 	<view class="counter-container">
 

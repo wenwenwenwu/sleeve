@@ -1,7 +1,6 @@
 /* components/fence/index.wxss */
 .container{
-  background-color: white;
-  padding: 30rpx 0rpx 0rpx 30rpx;
+  padding-top: 30rpx;
 }
 
 .title{

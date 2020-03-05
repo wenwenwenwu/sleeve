@@ -67,7 +67,7 @@ class CellStatusJudgeUtil {
     const row = cellModel.row
     const line = cellModel.line
     const specCode = this._creatSpecCode(cellModel) //根据已选中cellModel和当前cellModel确定
-    //当前cell就是选中cell,不让已选状态覆盖选中状态
+    //当前cell就是选中cell,不让可选状态覆盖选中状态
     if (this._selectUtil.isSelected(cellModel)) {
       return
     }

@@ -1,4 +1,42 @@
 /* components/realm/index.wxss */
 .container{
+  background-color: white;
   padding: 30rpx;
+}
+
+.sku-preview{
+  display: flex;
+  flex-direction: row;
+}
+
+.sku-description{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 40rpx;
+}
+
+.sku-img{
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.discount-price{
+  margin-left: 20rpx;
+}
+
+.price-row{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.sku-pending{
+  font-size: 20rpx;
+}
+
+.hl{
+  background-color: #e9e9e9;
+  height: 2rpx;
+  margin-top: 30rpx;
 }
