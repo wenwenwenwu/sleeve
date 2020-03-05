@@ -18,11 +18,11 @@ class CellStatusJudgeUtil {
 
   constructor(fenceGroup) {
     this._fenceGroup = fenceGroup
-    this._initPathDict()
+    this._composeSelectableCodeArray()
     this._selectUtil = new SelectUtil()
   }
 
-  _initPathDict() {
+  _composeSelectableCodeArray() {
     this._fenceGroup.skuList.forEach((sku) => {
       const skuCodeSeparateUtil = new SkuCodeSeparateUtil(sku.code)
       const selectableCodeArray = skuCodeSeparateUtil.getSelectableCodeArray()
@@ -33,7 +33,7 @@ class CellStatusJudgeUtil {
 
   judge(cellModel) {
     this._changeSelectStatus(cellModel)
-    this._enumerateFences((cellModelItem)=>{
+    this._enumerateFences((cellModelItem) => {
       this._changeSelectableStatus(cellModelItem)
     })
     return this._fenceGroup.fences
@@ -67,8 +67,9 @@ class CellStatusJudgeUtil {
     const row = cellModel.row
     const line = cellModel.line
     const specCode = this._creatSpecCode(cellModel) //根据已选中cellModel和当前cellModel确定
-    if (this._selectUtil.isSelected(cellModel)) { //当前cell就是选中cell,不改变状态
-      return 
+    //当前cell就是选中cell,不让已选状态覆盖选中状态
+    if (this._selectUtil.isSelected(cellModel)) {
+      return
     }
     const isSelectable = this._selectableCodeArray.includes(specCode)
     if (isSelectable) {
