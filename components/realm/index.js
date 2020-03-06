@@ -1,9 +1,12 @@
 import {
-  FenceGroup
-} from "../models/fence-group"
+  Realm
+} from "../models/realm"
 import {
   CellStatusChangeUtil
 } from "../models/cell-status-change-util"
+import {
+  Spu
+} from "../../models/spu"
 
 // components/realm/index.js
 Component({
@@ -23,7 +26,9 @@ Component({
     previewImg: String,
     title: String,
     price: String,
-    discountPrice: String
+    discountPrice: String,
+    isNoSpec:Boolean,
+    isSelectAll: Boolean
   },
 
   observers: {
@@ -31,15 +36,23 @@ Component({
       if (!spu) {
         return
       }
-      const fenceGroup = new FenceGroup(spu)
-      this.data.cellStatusChangeUtil = new CellStatusChangeUtil(fenceGroup)
-      const defaultSku = fenceGroup.defaultSku
+      if (Spu.isNoSpec(spu)) {
+        this.setData({
+          isNoSpec: true,
+        })
+        this.bindSpuData(spu.sku_list[0])
+        return
+      }
+      const realm = new Realm(spu)
+      this.data.cellStatusChangeUtil = new CellStatusChangeUtil(realm)
+      this.bindInitData(realm)
+
+      const defaultSku = realm.defaultSku
       if (defaultSku) {
         this.bindSkuData(defaultSku)
       } else {
         this.bindSpuData()
       }
-      this.bindInitData(fenceGroup)
     }
   },
 
@@ -53,7 +66,8 @@ Component({
         previewImg: spu.img,
         title: spu.title,
         price: spu.price,
-        discountPrice: spu.discount_price
+        discountPrice: spu.discount_price,
+
       })
     },
 
@@ -62,13 +76,15 @@ Component({
         previewImg: sku.img,
         title: sku.title,
         price: sku.price,
-        discountPrice: sku.discount_price
+        discountPrice: sku.discount_price,
+        stock: sku.stock
       })
     },
 
-    bindInitData(fenceGroup) {
+    bindInitData(realm) {
       this.setData({
-        fences: fenceGroup.fences
+        fences: realm.fences,
+        isSelectAll: this.data.cellStatusChangeUtil.selectUtil.isSelectAll()
       })
     },
 
@@ -77,7 +93,7 @@ Component({
       const cellStatusChangeUtil = this.data.cellStatusChangeUtil
       const fences = cellStatusChangeUtil.change(model)
       this.setData({
-        fences
+        fences: cellStatusChangeUtil._fenceGroup.fences
       })
     },
 

@@ -5,7 +5,7 @@ import {
   Fence
 } from "./fence"
 
-class FenceGroup {
+class Realm {
   _spu
   skuList
   fences
@@ -61,5 +61,5 @@ class FenceGroup {
 }
 
 export {
-  FenceGroup
+  Realm
 }

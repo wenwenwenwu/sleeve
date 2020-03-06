@@ -1,22 +1,24 @@
 class SelectUtil {
-  selectCellModels //按行储存选中数据
+  size
+  selectedCellModels //按行储存选中数据
 
-  constructor(selectCellModels=[]) {
-    this.selectCellModels = selectCellModels
+  constructor(size, selectCellModels = []) {
+    this.size = size
+    this.selectedCellModels = selectCellModels
   }
 
   select(cellModel) {
     const row = cellModel.row
-    this.selectCellModels[row] = cellModel
+    this.selectedCellModels[row] = cellModel
   }
 
   unSelect(cellModel) {
     const row = cellModel.row
-    this.selectCellModels[row] = null
+    this.selectedCellModels[row] = null
   }
 
   getRowSelectedCellModel(row) {
-    return this.selectCellModels[row]
+    return this.selectedCellModels[row]
   }
 
   isSelected(cellModel) {
@@ -26,6 +28,18 @@ class SelectUtil {
       return false
     }
     return cellModel.valueID === selectedCellModel.valueID
+  }
+
+  isSelectAll() {
+    // if (this.size !== this.selectCellModels.length) {
+    //   return false
+    // }
+    for (let i = 0; i < this.size; i++) {
+      if (!this.selectedCellModels[i]) {
+        return false
+      }
+    }
+    return true
   }
 }
 

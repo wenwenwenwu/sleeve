@@ -15,12 +15,12 @@ import {
 } from "./cell"
 
 class CellStatusChangeUtil {
-  _fenceGroup
+  realm
   _selectableCodeArray
-  _selectUtil
+  selectUtil
 
-  constructor(fenceGroup) {
-    this._fenceGroup = fenceGroup
+  constructor(realm) {
+    this.realm = realm
     this._initSelectableCodeArray()
     this._initSelectUtil()
     this._initSetting()
@@ -28,7 +28,7 @@ class CellStatusChangeUtil {
 
   _initSelectableCodeArray() {
     let selectableCodeArray = []
-    this._fenceGroup.skuList.forEach((sku) => {
+    this.realm.skuList.forEach((sku) => {
       const skuCodeSeparateUtil = new SkuCodeSeparateUtil(sku.code)
       const itemSelectableCodeArray = skuCodeSeparateUtil.getSelectableCodeArray()
       selectableCodeArray = selectableCodeArray.concat(itemSelectableCodeArray)
@@ -37,13 +37,27 @@ class CellStatusChangeUtil {
   }
 
   _initSelectUtil() {
-    const defaultSku = this._fenceGroup.defaultSku
+    const size = this.realm.fences.length
+    const defaultSku = this.realm.defaultSku
     if (!defaultSku) {
-      this._selectUtil = new SelectUtil()
+      this.selectUtil = new SelectUtil(size)
     } else {
-      const selectCellModels = defaultSku.specs.map((item) => new Cell(item))
-      this._selectUtil = new SelectUtil(selectCellModels)
+      const selectedCellModels = this._creatSelectedCellModels()
+      this.selectUtil = new SelectUtil(size, selectedCellModels)
     }
+  }
+
+  _creatSelectedCellModels() {
+    let selectedCellModels = []
+    this.realm.defaultSku.specs.forEach((spec) => {
+      const tempCell = new Cell(spec)
+      this._enumerateFences((cellModel) => {
+        if (cellModel.spec === tempCell.spec) {
+          selectedCellModels.push(cellModel)
+        }
+      })
+    })
+    return selectedCellModels
   }
 
   _initSetting() {
@@ -52,19 +66,15 @@ class CellStatusChangeUtil {
   }
 
   _changeDefaultSelectStatus() {
-    this._selectUtil.selectCellModels.forEach((selectedCellModel) => {
-      this._enumerateFences((cellModel) => {
-        if (cellModel.id === selectedCellModel.id) {
-          cellModel.status = CellStatus.SELECTED
-        }
-      })
+    this.selectUtil.selectedCellModels.forEach((selectedCellModel) => {
+      this._changeItemSelectStatus(selectedCellModel)
     })
   }
 
   change(cellModel) {
     this._changeItemSelectStatus(cellModel)
     this._changeSelectableStatus()
-    return this._fenceGroup.fences
+    return this.realm.fences
   }
 
   _changeItemSelectStatus(cellModel) {
@@ -72,12 +82,12 @@ class CellStatusChangeUtil {
     const row = cellModel.row
     const line = cellModel.line
     if (status === CellStatus.SELECTABLE) {
-      this._fenceGroup.fences[row].cells[line].status = CellStatus.SELECTED
-      this._selectUtil.select(cellModel)
+      this.realm.fences[row].cells[line].status = CellStatus.SELECTED
+      this.selectUtil.select(cellModel)
     }
     if (status === CellStatus.SELECTED) {
-      this._fenceGroup.fences[row].cells[line].status = CellStatus.SELECTABLE
-      this._selectUtil.unSelect(cellModel)
+      this.realm.fences[row].cells[line].status = CellStatus.SELECTABLE
+      this.selectUtil.unSelect(cellModel)
     }
   }
 
@@ -88,30 +98,30 @@ class CellStatusChangeUtil {
   }
 
   _changeItemSelectableStatus(cellModel) {
+    //当前cell就是选中cell,不让可选状态覆盖选中状态
+    if (this.selectUtil.isSelected(cellModel)) {
+      return
+    }
     const row = cellModel.row
     const line = cellModel.line
     const specCode = this._creatSpecCode(cellModel) //根据已选中cellModel和当前cellModel确定
-    //当前cell就是选中cell,不让可选状态覆盖选中状态
-    if (this._selectUtil.isSelected(cellModel)) {
-      return
-    }
     const isSelectable = this._selectableCodeArray.includes(specCode)
     if (isSelectable) {
-      this._fenceGroup.fences[row].cells[line].status = CellStatus.SELECTABLE
+      this.realm.fences[row].cells[line].status = CellStatus.SELECTABLE
     } else {
-      this._fenceGroup.fences[row].cells[line].status = CellStatus.FORBIDDEN
+      this.realm.fences[row].cells[line].status = CellStatus.FORBIDDEN
     }
   }
 
   _creatSpecCode(cellModel) {
     const currentRow = cellModel.row
     const joiner = new Joiner("#")
-    for (let row = 0; row < this._fenceGroup.fences.length; row++) {
+    for (let row = 0; row < this.realm.fences.length; row++) {
       if (currentRow === row) {
         const cellCode = this._getSpecCode(cellModel)
         joiner.join(cellCode) //拼接当前cell的specCode
       } else {
-        const selectedCellModel = this._selectUtil.getRowSelectedCellModel(row)
+        const selectedCellModel = this.selectUtil.getRowSelectedCellModel(row)
         if (selectedCellModel) {
           const specCode = this._getSpecCode(selectedCellModel)
           joiner.join(specCode) //拼接已选中的specCode
@@ -127,7 +137,7 @@ class CellStatusChangeUtil {
   }
 
   _enumerateFences(callBack) {
-    const fences = this._fenceGroup.fences
+    const fences = this.realm.fences
     for (let row = 0; row < fences.length; row++) {
       for (let line = 0; line < fences[row].cells.length; line++) {
         const cellModel = fences[row].cells[line]
@@ -135,20 +145,6 @@ class CellStatusChangeUtil {
       }
     }
   }
-
-
-  _setCellStatusByID(id, status) {
-    this._enumerateFences((cellModel) => {
-      if (cellModel.id === id) {
-        cellModel.status = status
-      }
-    })
-  }
-
-  _setCellStatusByLocation(row, line, status) {
-    this.fences[row].cells[line].status = status
-  }
-
 }
 
 export {

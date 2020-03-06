@@ -10,9 +10,14 @@
 				<view class="price-row">
 					<l-price value="{{p.mainPrice(price, discountPrice)}}" color="#157658" value-size="28" unit-size="20" autofix />
 					<l-price wx:if="{{data.discountPrice}}" deleted value="{{p.slashedPrice(price, discountPrice)}}" color="#999999" value-size="26" l-class="discount-price" autofix />
+					<view wx:if="{{stock && stock >=10}}" class="stock">{{stock}}</view>
+					<view wx:if="{{stock && stock<10 && stock!= 0}}" class="stock-pinch">仅剩:{{stock}}件</view>
 				</view>
-				<view class="sku-pending">
-					<text >请选择</text>
+				<view wx:if="{{!isNoSpec}}" class="sku-pending">
+					<text wx:if="{{!isSelectAll}}">请选择：</text>
+					<text wx:else>已选：</text>
+					<text wx:if="{{!isSelectAll}}">待选规格名</text>
+					<text wx:else>已选规格值</text>
 				</view>
 			</view>
 

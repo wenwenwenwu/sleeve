@@ -1,6 +1,7 @@
 import { CellStatus } from "../../core/enum"
 
 class Cell {
+  spec
   row
   line
   keyID
@@ -9,6 +10,7 @@ class Cell {
   status = CellStatus.SELECTABLE
 
   constructor(spec, row, line){
+    this.spec = spec
     this.row = row
     this.line = line
     this.keyID = spec.key_id
