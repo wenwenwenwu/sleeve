@@ -1,13 +1,15 @@
 <!--components/realm/index.wxml-->
+<wxs src="../../wxs/price.wxs" module='p' />
+
 <view class="container">
 	<view class="sku-preview">
-		<image class="sku-img" src=""></image>
+		<image class="sku-img" src="{{previewImg}}"></image>
 		<view class="sku-description">
-			<text class="title">测试sku</text>
+			<text class="title">{{title}}</text>
 			<view class="">
 				<view class="price-row">
-					<l-price value="777" color="#157658" value-size="28" unit-size="20" autofix />
-					<l-price deleted value="999" color="#999999" value-size="26" l-class="discount-price" autofix />
+					<l-price value="{{p.mainPrice(price, discountPrice)}}" color="#157658" value-size="28" unit-size="20" autofix />
+					<l-price wx:if="{{data.discountPrice}}" deleted value="{{p.slashedPrice(price, discountPrice)}}" color="#999999" value-size="26" l-class="discount-price" autofix />
 				</view>
 				<view class="sku-pending">
 					<text >请选择</text>

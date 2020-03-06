@@ -1,5 +1,9 @@
 class SelectUtil {
-  selectCellModels = [] //按行储存选中数据
+  selectCellModels //按行储存选中数据
+
+  constructor(selectCellModels=[]) {
+    this.selectCellModels = selectCellModels
+  }
 
   select(cellModel) {
     const row = cellModel.row

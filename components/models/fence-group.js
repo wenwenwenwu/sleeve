@@ -6,12 +6,16 @@ import {
 } from "./fence"
 
 class FenceGroup {
+  _spu
   skuList
   fences
+  defaultSku
 
   constructor(spu) {
+    this._spu = spu
     this.skuList = spu.sku_list
     this._initFence()
+    this._initDefaultSku()
   }
 
   _initFence() {
@@ -19,11 +23,21 @@ class FenceGroup {
     const specArrayConvertUtil = new SpecArrayConvertUtil(rawSpecArray)
     const specsArray = specArrayConvertUtil.getSpecArray()
     const fences = []
-    specsArray.forEach((specs,index) => {
-      const fence = new Fence(index,specs)
+    specsArray.forEach((specs, index) => {
+      const fence = new Fence(index, specs)
       fences.push(fence)
     })
     this.fences = fences
+  }
+
+  _initDefaultSku() {
+    const defaultSkuID = this._spu.default_sku_id
+    if (!defaultSkuID) {
+      this.defaultSku = null
+      return
+    }
+    const defaultSku = this.skuList.find((item) => item.id === defaultSkuID)
+    this.defaultSku = defaultSku
   }
 
   _creatRawSpecsArray() {
@@ -32,6 +46,16 @@ class FenceGroup {
       rawSpecArray.push(sku.specs)
     })
     return rawSpecArray
+  }
+
+  _enumerateFences(callBack) {
+    const fences = this.fences
+    for (let row = 0; row < fences.length; row++) {
+      for (let line = 0; line < fences[row].cells.length; line++) {
+        const cellModel = fences[row].cells[line]
+        callBack(cellModel)
+      }
+    }
   }
 
 }
