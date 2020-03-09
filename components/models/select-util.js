@@ -33,7 +33,7 @@ class SelectUtil {
     return this.selectedCellModels[row]
   }
 
-  isSelected(cellModel) {
+  getSelectStatus(cellModel) {
     const row = cellModel.row
     const selectedCellModel = this.getRowSelectedCellModel(row)
     if (!selectedCellModel) {

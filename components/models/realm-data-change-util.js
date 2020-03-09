@@ -29,7 +29,7 @@ class RealmDataChangeUtil {
   _initSelectUtil() {
     const size = this.fences.length
     if (!this._defaultSku) {
-      this._selectUtil = new SelectUtil(size,[])
+      this._selectUtil = new SelectUtil(size, [])
     } else {
       const selectedCellModels = this._creatSelectedCellModels()
       this._selectUtil = new SelectUtil(size, selectedCellModels)
@@ -102,7 +102,7 @@ class RealmDataChangeUtil {
 
   _changeItemSelectableStatus(cellModel) {
     //当前cell就是选中cell,不让可选状态覆盖选中状态
-    if (this._selectUtil.isSelected(cellModel)) {
+    if (this._selectUtil.getSelectStatus(cellModel)) {
       return
     }
     const row = cellModel.row

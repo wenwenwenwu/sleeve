@@ -7,16 +7,16 @@ class SpecArrayConvertUtil {
    */
   _rawSpecArray
 
+  constructor(rawSpecArray) {
+    this._rawSpecArray = rawSpecArray
+  }
+
   get goodNum() {
     return this._rawSpecArray.length
   }
 
   get specNum() {
     return this._rawSpecArray[0].length
-  }
-
-  constructor(rawSpecArray) {
-    this._rawSpecArray = rawSpecArray
   }
 
   /**
