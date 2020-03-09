@@ -3,20 +3,20 @@
 
 <view class="container">
 	<view class="sku-preview">
-		<image class="sku-img" src="{{previewImg}}"></image>
+		<image class="sku-img" src="{{realm.previewImg}}"></image>
 		<view class="sku-description">
-			<text class="title">{{title}}</text>
+			<text class="title">{{realm.title}}</text>
 			<view class="">
 				<view class="price-row">
-					<l-price value="{{p.mainPrice(price, discountPrice)}}" color="#157658" value-size="28" unit-size="20" autofix />
-					<l-price wx:if="{{data.discountPrice}}" deleted value="{{p.slashedPrice(price, discountPrice)}}" color="#999999" value-size="26" l-class="discount-price" autofix />
-					<view wx:if="{{stock && stock >=10}}" class="stock">{{stock}}</view>
-					<view wx:if="{{stock && stock<10 && stock!= 0}}" class="stock-pinch">仅剩:{{stock}}件</view>
+					<l-price value="{{p.mainPrice(realm.price, realm.discountPrice)}}" color="#157658" value-size="28" unit-size="20" autofix />
+					<l-price wx:if="{{realm.discountPrice}}" deleted value="{{p.slashedPrice(realm.price, realm.discountPrice)}}" color="#999999" value-size="26" l-class="discount-price" autofix />
+					<view wx:if="{{stock && stock >=10}}" class="realm.stock">{{stock}}</view>
+					<view wx:if="{{stock && stock<10 && stock!= 0}}" class="stock-pinch">仅剩:{{realm.stock}}件</view>
 				</view>
-				<view wx:if="{{!isNoSpec}}" class="sku-pending">
-					<text wx:if="{{!isSpecSelectCompleted}}">请选择：</text>
+				<view wx:if="{{!realm.isNoSpec}}" class="sku-pending">
+					<text wx:if="{{!realm.isSpecSelectCompleted}}">请选择：</text>
 					<text wx:else>已选：</text>
-					<text wx:if="{{!isSpecSelectCompleted}}">待选规格名</text>
+					<text wx:if="{{!realm.isSpecSelectCompleted}}">待选规格名</text>
 					<text wx:else>已选规格值</text>
 				</view>
 			</view>
@@ -24,10 +24,9 @@
 		</view>
 	</view>
 	<view class="hl"></view>
-	<block wx:for="{{fences}}" wx:key="index">
-		<c-fence model="{{item}}" bind:onTap="onCellTap" />
+	<block wx:for="{{realm.fences}}" wx:key="index">
+			<c-fence model="{{item}}" bind:onTap="onCellTap" />
 	</block>
 	<view class="counter-container">
-
 	</view>
 </view>

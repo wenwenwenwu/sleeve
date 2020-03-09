@@ -8,41 +8,79 @@ import {
 class Realm {
   _spu
   skuList
+  defaultSku
+  previewImg
+  title
+  price
+  discountPrice
+  stock
+  isNoSpec
+  fences
+  isSpecSelectCompleted
 
   constructor(spu) {
     this._spu = spu
     this.skuList = spu.sku_list
+    this._initDefaultSku()
+    this._initPreviewImg()
+    this._initTitle()
+    this._initIsNoSpec()
+    this._initPrice()
+    this._initDiscountPrice()
+    this._initStock()
+    this._initIsNoSpec()
+    this._initFences()
+    this.isSpecSelectCompleted = false
   }
 
-  get isNoSpec(){
+  _initDefaultSku() {
+    const defaultSkuID = this._spu.default_sku_id
+    if (!defaultSkuID) {
+      this.defaultSku = null
+    }
+    const defaultSku = this.skuList.find((item) => item.id === defaultSkuID)
+    this.defaultSku = defaultSku
+  }
+
+  _initPreviewImg() {
+    this.previewImg = this.defaultSku ? this.defaultSku.img : this._spu.img
+  }
+
+  _initTitle() {
+    this.title = this.defaultSku ? this.defaultSku.title : this._spu.title
+  }
+
+  _initPrice() {
+    this.price = this.defaultSku ? this.defaultSku.price : this._spu.price
+  }
+
+  _initDiscountPrice() {
+    this.discountPrice = this.defaultSku ? this.defaultSku.discount_price : this._spu.discount_price
+  }
+
+  _initStock() {
+    this.stock = this.defaultSku ? this.defaultSku.stock : null
+  }
+
+  _initIsNoSpec() {
     const spu = this._spu
     //一个单品一个规格
-    if(spu.sku_list.length === 1 && spu.sku_list[0].specs.length === 0){
-      return true
-    } 
-    return false
+    if (spu.sku_list.length === 1 && spu.sku_list[0].specs.length === 0) {
+      this.isNoSpec = true
+    }
+    this.isNoSpec = false
   }
 
-  get fences() {
+  _initFences() {
     const rawSpecArray = this._creatRawSpecsArray()
     const specArrayConvertUtil = new SpecArrayConvertUtil(rawSpecArray)
-    const specsArray = specArrayConvertUtil.getSpecArray()
+    const specsArray = specArrayConvertUtil.specArray
     const fences = []
     specsArray.forEach((specs, index) => {
       const fence = new Fence(index, specs)
       fences.push(fence)
     })
-    return fences
-  }
-
-  get defaultSku() {
-    const defaultSkuID = this._spu.default_sku_id
-    if (!defaultSkuID) {
-      this.defaultSku = null
-      return
-    }
-    const defaultSku = this.skuList.find((item) => item.id === defaultSkuID)
-    return defaultSku
+    this.fences = fences
   }
 
   _creatRawSpecsArray() {
@@ -52,17 +90,6 @@ class Realm {
     })
     return rawSpecArray
   }
-
-  _enumerateFences(callBack) {
-    const fences = this.fences
-    for (let row = 0; row < fences.length; row++) {
-      for (let line = 0; line < fences[row].cells.length; line++) {
-        const cellModel = fences[row].cells[line]
-        callBack(cellModel)
-      }
-    }
-  }
-
 }
 
 export {

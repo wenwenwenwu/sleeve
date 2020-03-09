@@ -26,7 +26,7 @@ class SpecArrayConvertUtil {
    * [货品1颜色,货品2颜色,货品3颜色,货品4颜色]
    */
   // 目标数组与原数组相当于进行了矩阵转置
-  getSpecArray() {
+  get specArray() {
     const desArray = []
     for (let specIndex = 0; specIndex < this.specNum; specIndex++) { //列变行
       desArray[specIndex] = []

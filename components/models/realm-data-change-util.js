@@ -17,26 +17,13 @@ import {
 class RealmDataChangeUtil {
   _defaultSku
   fences
-  _selectableCodeArray
   _selectUtil
-  isSpecSelectCompleted
 
   constructor(realm) {
     this.fences = realm.fences
     this.skuList = realm.skuList
     this._defaultSku = realm.defaultSku
-    this._initSelectableCodeArray()
     this._initSelectUtil()
-  }
-
-  _initSelectableCodeArray() {
-    let selectableCodeArray = []
-    this.skuList.forEach((sku) => {
-      const skuCodeSeparateUtil = new SkuCodeSeparateUtil(sku.code)
-      const itemSelectableCodeArray = skuCodeSeparateUtil.getSelectableCodeArray()
-      selectableCodeArray = selectableCodeArray.concat(itemSelectableCodeArray)
-    })
-    this._selectableCodeArray = selectableCodeArray
   }
 
   _initSelectUtil() {
@@ -47,6 +34,21 @@ class RealmDataChangeUtil {
       const selectedCellModels = this._creatSelectedCellModels()
       this._selectUtil = new SelectUtil(size, selectedCellModels)
     }
+  }
+
+  get _selectableCodeArray() {
+    let selectableCodeArray = []
+    this.skuList.forEach((sku) => {
+      const skuCodeSeparateUtil = new SkuCodeSeparateUtil(sku.code)
+      const itemSelectableCodeArray = skuCodeSeparateUtil.selectableCodeArray
+      selectableCodeArray = selectableCodeArray.concat(itemSelectableCodeArray)
+    })
+    return selectableCodeArray
+  }
+
+  get isSpecSelectCompleted() {
+    const selectUtil = this._selectUtil
+    return selectUtil.isSelectCompleted
   }
 
   _creatSelectedCellModels() {
@@ -65,7 +67,6 @@ class RealmDataChangeUtil {
   defaultChange() {
     this._changeDefaultSelectStatus()
     this._changeSelectableStatus()
-    this._judgeSpecSelectCompletedStatus()
   }
 
   _changeDefaultSelectStatus() {
@@ -77,7 +78,6 @@ class RealmDataChangeUtil {
   change(cellModel) {
     this._changeItemSelectStatus(cellModel)
     this._changeSelectableStatus()
-    this._judgeSpecSelectCompletedStatus()
   }
 
   _changeItemSelectStatus(cellModel) {
@@ -147,11 +147,6 @@ class RealmDataChangeUtil {
         callBack(cellModel)
       }
     }
-  }
-
-  _judgeSpecSelectCompletedStatus() {
-    const selectUtil = this._selectUtil
-    this.isSpecSelectCompleted = selectUtil.judgeSlectCompleteStatus()
   }
 
 }

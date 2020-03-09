@@ -11,7 +11,7 @@ class SkuCodeSeparateUtil {
     this._spuAndSpec = code.split("$")
   }
 
-  getSelectableCodeArray() {
+  get selectableCodeArray() {
     let selectableCodeArray = []
     const specCode = this._spuAndSpec[1]
     const specCodeArray = specCode.split("#")
