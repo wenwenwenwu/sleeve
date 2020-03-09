@@ -1,9 +1,9 @@
 class SelectUtil {
-  size
+  _size
   selectedCellModels //按行储存选中数据
 
-  constructor(size, selectCellModels = []) {
-    this.size = size
+  constructor(size, selectCellModels) {
+    this._size = size
     this.selectedCellModels = selectCellModels
   }
 
@@ -30,11 +30,11 @@ class SelectUtil {
     return cellModel.valueID === selectedCellModel.valueID
   }
 
-  isSelectAll() {
-    // if (this.size !== this.selectCellModels.length) {
+  judgeSlectCompleteStatus() { 
+    // if (this._size !== this.selectCellModels.length) {
     //   return false
     // }
-    for (let i = 0; i < this.size; i++) {
+    for (let i = 0; i < this._size; i++) {
       if (!this.selectedCellModels[i]) {
         return false
       }

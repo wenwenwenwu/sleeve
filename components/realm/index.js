@@ -2,8 +2,8 @@ import {
   Realm
 } from "../models/realm"
 import {
-  CellStatusChangeUtil
-} from "../models/cell-status-change-util"
+  RealmDataChangeUtil
+} from "../models/realm-data-change-util.js"
 import {
   Spu
 } from "../../models/spu"
@@ -22,13 +22,13 @@ Component({
    * 组件的初始数据
    */
   data: {
-    cellStatusChangeUtil: Object,
+    realmDataChangeUtil: Object,
     previewImg: String,
     title: String,
     price: String,
     discountPrice: String,
     isNoSpec:Boolean,
-    isSelectAll: Boolean
+    isSpecSelectCompleted: Boolean
   },
 
   observers: {
@@ -36,15 +36,16 @@ Component({
       if (!spu) {
         return
       }
-      if (Spu.isNoSpec(spu)) {
+      const realm = new Realm(spu)
+      if (realm.isNoSpec) {
         this.setData({
           isNoSpec: true,
         })
         this.bindSpuData(spu.sku_list[0])
         return
       }
-      const realm = new Realm(spu)
-      this.data.cellStatusChangeUtil = new CellStatusChangeUtil(realm)
+      this.data.realmDataChangeUtil = new RealmDataChangeUtil(realm)
+      this.data.realmDataChangeUtil.defaultChange()
       this.bindInitData(realm)
 
       const defaultSku = realm.defaultSku
@@ -82,18 +83,20 @@ Component({
     },
 
     bindInitData(realm) {
+      const realmDataChangeUtil = this.data.realmDataChangeUtil
       this.setData({
-        fences: realm.fences,
-        isSelectAll: this.data.cellStatusChangeUtil.selectUtil.isSelectAll()
+        fences: realmDataChangeUtil.fences,
+        isSpecSelectCompleted: realmDataChangeUtil.isSpecSelectCompleted
       })
     },
 
     onCellTap(event) {
       const model = event.detail.model
-      const cellStatusChangeUtil = this.data.cellStatusChangeUtil
-      const fences = cellStatusChangeUtil.change(model)
+      const realmDataChangeUtil = this.data.realmDataChangeUtil
+      realmDataChangeUtil.change(model)
       this.setData({
-        fences: cellStatusChangeUtil._fenceGroup.fences
+        fences: realmDataChangeUtil.fences,
+        isSpecSelectCompleted: realmDataChangeUtil.isSpecSelectCompleted
       })
     },
 
