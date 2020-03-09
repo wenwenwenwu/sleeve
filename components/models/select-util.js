@@ -1,3 +1,7 @@
+import {
+  Joiner
+} from "../../utils/joiner"
+
 class SelectUtil {
   _size
   selectedCellModels //按行储存选中数据
@@ -40,6 +44,15 @@ class SelectUtil {
       return false
     }
     return cellModel.valueID === selectedCellModel.valueID
+  }
+
+  get skuCode() {
+    const joiner = new Joiner('#')
+    this.selectedCellModels.forEach((cellModel) => {
+      const cellCode = cellModel.code
+      joiner.join(cellCode)
+    })
+    return joiner.getStr()
   }
 }
 

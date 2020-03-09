@@ -10,8 +10,8 @@
 				<view class="price-row">
 					<l-price value="{{p.mainPrice(realm.price, realm.discountPrice)}}" color="#157658" value-size="28" unit-size="20" autofix />
 					<l-price wx:if="{{realm.discountPrice}}" deleted value="{{p.slashedPrice(realm.price, realm.discountPrice)}}" color="#999999" value-size="26" l-class="discount-price" autofix />
-					<view wx:if="{{stock && stock >=10}}" class="realm.stock">{{stock}}</view>
-					<view wx:if="{{stock && stock<10 && stock!= 0}}" class="stock-pinch">仅剩:{{realm.stock}}件</view>
+					<view wx:if="{{realm.stock && realm.stock >=10}}" class="realm.stock">{{stock}}</view>
+					<view wx:if="{{realm.stock && realm.stock<10 && realm.stock!= 0}}" class="stock-pinch">仅剩:{{realm.stock}}件</view>
 				</view>
 				<view wx:if="{{!realm.isNoSpec}}" class="sku-pending">
 					<text wx:if="{{!realm.isSpecSelectCompleted}}">请选择：</text>

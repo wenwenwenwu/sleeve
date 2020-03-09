@@ -6,6 +6,7 @@ import {
 } from "./fence"
 
 class Realm {
+  id
   _spu
   skuList
   defaultSku
@@ -19,6 +20,7 @@ class Realm {
   isSpecSelectCompleted
 
   constructor(spu) {
+    this.pid = spu.id
     this._spu = spu
     this.skuList = spu.sku_list
     this._initDefaultSku()
@@ -72,7 +74,7 @@ class Realm {
   }
 
   _initFences() {
-    const rawSpecArray = this._creatRawSpecsArray()
+    const rawSpecArray = this._rawSpecsArray
     const specArrayConvertUtil = new SpecArrayConvertUtil(rawSpecArray)
     const specsArray = specArrayConvertUtil.specArray
     const fences = []
@@ -83,7 +85,7 @@ class Realm {
     this.fences = fences
   }
 
-  _creatRawSpecsArray() {
+  get _rawSpecsArray() {
     const rawSpecArray = []
     this.skuList.forEach(sku => {
       rawSpecArray.push(sku.specs)
