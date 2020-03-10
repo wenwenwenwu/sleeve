@@ -16,23 +16,16 @@ import {
 
 class RealmDataChangeUtil {
   realm
-  _defaultSku
-  // fences
-  _pid
-  _skuList
   _selectUtil
 
   constructor(realm) {
     this.realm = realm
-    this._pid = realm.pid
-    this._skuList = realm.skuList
-    this._defaultSku = realm.defaultSku
     this._initSelectUtil()
   }
 
   _initSelectUtil() {
     const size = this.realm.fences.length
-    if (!this._defaultSku) {
+    if (!this.realm.defaultSku) {
       this._selectUtil = new SelectUtil(size, [])
     } else {
       const selectedCellModels = this._creatSelectedCellModels()
@@ -42,7 +35,7 @@ class RealmDataChangeUtil {
 
   get _selectableCodeArray() {
     let selectableCodeArray = []
-    this._skuList.forEach((sku) => {
+    this.realm.spu.sku_list.forEach((sku) => {
       const skuCodeSeparateUtil = new SkuCodeSeparateUtil(sku.code)
       const itemSelectableCodeArray = skuCodeSeparateUtil.selectableCodeArray
       selectableCodeArray = selectableCodeArray.concat(itemSelectableCodeArray)
@@ -50,14 +43,9 @@ class RealmDataChangeUtil {
     return selectableCodeArray
   }
 
-  _changeSpecSelectCompletedStatus() {
-    const selectUtil = this._selectUtil
-    this.realm.isSpecSelectCompleted = selectUtil.isSelectCompleted
-  }
-
   _creatSelectedCellModels() {
     let selectedCellModels = []
-    this._defaultSku.specs.forEach((spec) => {
+    this.realm.defaultSku.specs.forEach((spec) => {
       const tempCell = new Cell(spec)
       this._enumerateFences((cellModel) => {
         if (cellModel.spec === tempCell.spec) {
@@ -79,27 +67,6 @@ class RealmDataChangeUtil {
     this._selectUtil.selectedCellModels.forEach((selectedCellModel) => {
       this._changeItemSelectStatus(selectedCellModel)
     })
-  }
-
-  change(cellModel) {
-    this._changeItemSelectStatus(cellModel)
-    this._changeSelectableStatus()
-    this._changeSpecSelectCompletedStatus()
-    this._changeGood()
-  }
-
-  _changeItemSelectStatus(cellModel) {
-    const status = cellModel.status
-    const row = cellModel.row
-    const line = cellModel.line
-    if (status === CellStatus.SELECTABLE) {
-      this.realm.fences[row].cells[line].status = CellStatus.SELECTED
-      this._selectUtil.select(cellModel)
-    }
-    if (status === CellStatus.SELECTED) {
-      this.realm.fences[row].cells[line].status = CellStatus.SELECTABLE
-      this._selectUtil.unSelect(cellModel)
-    }
   }
 
   _changeSelectableStatus() {
@@ -124,10 +91,36 @@ class RealmDataChangeUtil {
     }
   }
 
-  _changeGood() {
+  _changeSpecSelectCompletedStatus() {
     const selectUtil = this._selectUtil
-    const code = `${this._pid}$${selectUtil.skuCode}`
-    const sku = this._skuList.find(item => item.code === code)
+    this.realm.isSpecSelectCompleted = selectUtil.isSelectCompleted
+  }
+
+  change(cellModel) {
+    this._changeItemSelectStatus(cellModel)
+    this._changeSelectableStatus()
+    this._changeSpecSelectCompletedStatus()
+    this._changePreviewInfo()
+  }
+
+  _changeItemSelectStatus(cellModel) {
+    const status = cellModel.status
+    const row = cellModel.row
+    const line = cellModel.line
+    if (status === CellStatus.SELECTABLE) {
+      this.realm.fences[row].cells[line].status = CellStatus.SELECTED
+      this._selectUtil.select(cellModel)
+    }
+    if (status === CellStatus.SELECTED) {
+      this.realm.fences[row].cells[line].status = CellStatus.SELECTABLE
+      this._selectUtil.unSelect(cellModel)
+    }
+  }
+
+  _changePreviewInfo() {
+    const selectUtil = this._selectUtil
+    const code = `${this.realm.spu.id}$${selectUtil.skuCode}`
+    const sku = this.realm.spu.sku_list.find(item => item.code === code)
     if (!sku) {
       return
     }

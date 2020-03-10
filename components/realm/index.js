@@ -31,10 +31,8 @@ Component({
       this.data.realmDataChangeUtil = new RealmDataChangeUtil(realm)
       const realmDataChangeUtil = this.data.realmDataChangeUtil
       realmDataChangeUtil.defaultChange()
-      // realm.isSpecSelectCompleted = realmDataChangeUtil.isSpecSelectCompleted
-      // realm.fences = realmDataChangeUtil.fences
       this.setData({
-        realm,
+        realm: realmDataChangeUtil.realm,
       })
     }
   },
@@ -47,11 +45,8 @@ Component({
       const model = event.detail.model
       const realmDataChangeUtil = this.data.realmDataChangeUtil
       realmDataChangeUtil.change(model)
-      // const realm = this.data.realm
-      const realm = realmDataChangeUtil.realm
-      // realm.fences = realmDataChangeUtil.realm.fences
       this.setData({
-        realm
+        realm: realmDataChangeUtil.realm
       })
     },
 

@@ -49,10 +49,21 @@ class SelectUtil {
   get skuCode() {
     const joiner = new Joiner('#')
     this.selectedCellModels.forEach((cellModel) => {
+      if (!cellModel){
+        return
+      }
       const cellCode = cellModel.code
       joiner.join(cellCode)
     })
     return joiner.getStr()
+  }
+
+  get selectSpecValues(){
+
+  }
+
+  get missingSpecKeys(){
+
   }
 }
 
