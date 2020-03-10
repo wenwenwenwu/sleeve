@@ -49,7 +49,7 @@ class SelectUtil {
   get skuCode() {
     const joiner = new Joiner('#')
     this.selectedCellModels.forEach((cellModel) => {
-      if (!cellModel){
+      if (!cellModel) {
         return
       }
       const cellCode = cellModel.code
@@ -58,12 +58,21 @@ class SelectUtil {
     return joiner.getStr()
   }
 
-  get selectSpecValues(){
-
+  get selectedSpecValues() {
+    const values = this.selectedCellModels.map((cellModel) => {
+      return cellModel ? cellModel.value : null
+    })
+    return values
   }
 
-  get missingSpecKeys(){
-
+  get missingSpecKeyIndexes() {
+    let keyIndexs = []
+    for (let i = 0; i < this._size; i++) {
+      if (!this.selectedCellModels[i]) {
+        keyIndexs.push(i)
+      }
+    }
+    return keyIndexs
   }
 }
 

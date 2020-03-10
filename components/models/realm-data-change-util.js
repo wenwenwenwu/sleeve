@@ -94,6 +94,9 @@ class RealmDataChangeUtil {
   _changeSpecSelectCompletedStatus() {
     const selectUtil = this._selectUtil
     this.realm.isSpecSelectCompleted = selectUtil.isSelectCompleted
+    console.log(this._missingSpecKeys)
+    this.realm.selectedSpecValues = this._selectedSpecValues
+    this.realm.missingSpecKeys = this._missingSpecKeys
   }
 
   change(cellModel) {
@@ -158,6 +161,20 @@ class RealmDataChangeUtil {
         callBack(cellModel)
       }
     }
+  }
+
+  get _missingSpecKeys() {
+    const missingSpecKeyIndexes = this._selectUtil.missingSpecKeyIndexes
+    console.log(missingSpecKeyIndexes)
+    const missingSpecKeys = missingSpecKeyIndexes.map((item) => {
+      return this.realm.fences[item].title
+    })
+    return  missingSpecKeys
+  }
+
+  get _selectedSpecValues() {
+    const selectedSpecValues = this._selectUtil.selectedSpecValues
+    return selectedSpecValues.join(",")
   }
 
 }

@@ -13,6 +13,8 @@ class Realm {
   price
   discountPrice
   stock
+  selectedSpecValues
+  missSpecKeys
   isNoSpec
   fences
   isSpecSelectCompleted

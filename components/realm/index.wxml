@@ -16,8 +16,8 @@
 				<view wx:if="{{!realm.isNoSpec}}" class="sku-pending">
 					<text wx:if="{{!realm.isSpecSelectCompleted}}">请选择：</text>
 					<text wx:else>已选：</text>
-					<text wx:if="{{!realm.isSpecSelectCompleted}}">待选规格名</text>
-					<text wx:else>已选规格值</text>
+					<text wx:if="{{!realm.isSpecSelectCompleted}}">{{realm.missingSpecKeys}}</text>
+					<text wx:else>{{realm.selectedSpecValues}}</text>
 				</view>
 			</view>
 
