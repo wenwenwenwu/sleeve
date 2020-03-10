@@ -4,10 +4,13 @@ import {
 import {
   Fence
 } from "./fence"
+import {
+  Cart
+} from "../../models/cart"
 
 class Realm {
   spu
-  defaultSku
+  defaultSku //创建realmDataChangeUtil用
   previewImg
   title
   price
@@ -18,49 +21,37 @@ class Realm {
   isNoSpec
   fences
   isSpecSelectCompleted
+  shoppingCount
   isOutOfStock
 
   constructor(spu) {
     this.spu = spu
-    this._initDefaultSku()
+    this.isSpecSelectCompleted = false
     this._initPreviewImg()
     this._initTitle()
-    this._initIsNoSpec()
     this._initPrice()
     this._initDiscountPrice()
-    this._initStock()
     this._initIsNoSpec()
+    this.stock = null
     this._initFences()
-    // this.isSpecSelectCompleted = false
-  }
-
-  _initDefaultSku() {
-    const defaultSkuID = this.spu.default_sku_id
-    if (!defaultSkuID) {
-      this.defaultSku = null
-    }
-    const defaultSku = this.spu.sku_list.find((item) => item.id === defaultSkuID)
-    this.defaultSku = defaultSku
+    this.shoppingCount = Cart.SKU_MIN_COUNT
+    this.isOutOfStock = false
   }
 
   _initPreviewImg() {
-    this.previewImg = this.defaultSku ? this.defaultSku.img : this.spu.img
+    this.previewImg = this.spu.img
   }
 
   _initTitle() {
-    this.title = this.defaultSku ? this.defaultSku.title : this.spu.title
+    this.title = this.spu.title
   }
 
   _initPrice() {
-    this.price = this.defaultSku ? this.defaultSku.price : this.spu.price
+    this.price = this.spu.price
   }
 
   _initDiscountPrice() {
-    this.discountPrice = this.defaultSku ? this.defaultSku.discount_price : this.spu.discount_price
-  }
-
-  _initStock() {
-    this.stock = this.defaultSku ? this.defaultSku.stock : null
+    this.discountPrice = this.spu.discount_price
   }
 
   _initIsNoSpec() {

@@ -29,7 +29,7 @@ Component({
       }
       const realm = new Realm(spu)
       this.data.realmDataChangeUtil = new RealmDataChangeUtil(realm)
-      this.data.realmDataChangeUtil.defaultChange()
+      this.data.realmDataChangeUtil.changeDefaultSku()
       this.setData({
         realm: this.data.realmDataChangeUtil.realm,
       })

@@ -25,17 +25,26 @@ class RealmDataChangeUtil {
 
   _initSelectUtil() {
     const size = this.realm.fences.length
-    if (!this.realm.defaultSku) {
+    if (!this.defaultSku) {
       this._selectUtil = new SelectUtil(size, [])
     } else {
-      const selectedCellModels = this._creatSelectedCellModels()
+      const selectedCellModels = this.selectedCellModels
       this._selectUtil = new SelectUtil(size, selectedCellModels)
     }
   }
 
-  _creatSelectedCellModels() {
+  get defaultSku() {
+    const defaultSkuID = this.realm.spu.default_sku_id
+    if (!defaultSkuID) {
+      return null
+    }
+    const defaultSku = this.realm.spu.sku_list.find((item) => item.id === defaultSkuID)
+    return defaultSku
+  }
+
+  get selectedCellModels() {
     let selectedCellModels = []
-    this.realm.defaultSku.specs.forEach((spec) => {
+    this.defaultSku.specs.forEach((spec) => {
       const tempCell = new Cell(spec)
       this._enumerateFences((cellModel) => {
         if (cellModel.spec === tempCell.spec) {
@@ -58,7 +67,6 @@ class RealmDataChangeUtil {
 
   get _missingSpecKeys() {
     const missingSpecKeyIndexes = this._selectUtil.missingSpecKeyIndexes
-    console.log(missingSpecKeyIndexes)
     const missingSpecKeys = missingSpecKeyIndexes.map((item) => {
       return this.realm.fences[item].title
     })
@@ -70,11 +78,12 @@ class RealmDataChangeUtil {
     return selectedSpecValues.join(",")
   }
 
-  defaultChange() {
+  changeDefaultSku() {
+    this._changePreviewInfo()
     this._changeDefaultSelectStatus()
     this._changeSelectableStatus()
     this._changeSpecSelectCompletedStatus()
-    this.changeShoppingCount()
+    this.changeShoppingCount(this.realm.shoppingCount)
   }
 
   _changeDefaultSelectStatus() {
@@ -117,7 +126,7 @@ class RealmDataChangeUtil {
     this._changeSelectableStatus()
     this._changeSpecSelectCompletedStatus()
     this._changePreviewInfo()
-    
+
     this.changeShoppingCount()
   }
 
@@ -179,7 +188,8 @@ class RealmDataChangeUtil {
   }
 
   changeShoppingCount(shoppingCount) {
-    this.realm.isOutOfStock = this.realm.stock < shoppingCount
+    this.realm.shoppingCount = shoppingCount
+    this.realm.isOutOfStock = this.realm.stock < this.realm.shoppingCount
   }
 
 }
