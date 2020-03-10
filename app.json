@@ -18,6 +18,7 @@
     "l-price": "/miniprogram_npm/lin-ui/price/index",
     "l-tag": "/miniprogram_npm/lin-ui/tag/index",
     "l-loadmore": "/miniprogram_npm/lin-ui/loadmore/index",
-    "c-spu-preview": "/components/spu-preview/index"
+    "c-spu-preview": "/components/spu-preview/index",
+    "c-counter": "/components/counter/index"
   }
 }

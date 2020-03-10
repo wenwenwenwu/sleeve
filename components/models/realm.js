@@ -18,6 +18,7 @@ class Realm {
   isNoSpec
   fences
   isSpecSelectCompleted
+  isOutOfStock
 
   constructor(spu) {
     this.spu = spu

@@ -28,5 +28,14 @@
 			<c-fence model="{{item}}" bind:onTap="onCellTap" />
 	</block>
 	<view class="counter-container">
+	<text>购买数量</text>
+	<c-counter bind:lintap="onSelectCount"/>
 	</view>
+</view>
+
+<view wx:if="{{!realm.isOutOfStock}}" class="bottom-btn">
+	<text>加入购物车</text>
+</view>
+<view wx:else class="bottom-btn out-stock">
+	<text>暂时缺货</text>
 </view>

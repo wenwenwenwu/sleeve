@@ -33,16 +33,6 @@ class RealmDataChangeUtil {
     }
   }
 
-  get _selectableCodeArray() {
-    let selectableCodeArray = []
-    this.realm.spu.sku_list.forEach((sku) => {
-      const skuCodeSeparateUtil = new SkuCodeSeparateUtil(sku.code)
-      const itemSelectableCodeArray = skuCodeSeparateUtil.selectableCodeArray
-      selectableCodeArray = selectableCodeArray.concat(itemSelectableCodeArray)
-    })
-    return selectableCodeArray
-  }
-
   _creatSelectedCellModels() {
     let selectedCellModels = []
     this.realm.defaultSku.specs.forEach((spec) => {
@@ -56,11 +46,35 @@ class RealmDataChangeUtil {
     return selectedCellModels
   }
 
+  get _selectableCodeArray() {
+    let selectableCodeArray = []
+    this.realm.spu.sku_list.forEach((sku) => {
+      const skuCodeSeparateUtil = new SkuCodeSeparateUtil(sku.code)
+      const itemSelectableCodeArray = skuCodeSeparateUtil.selectableCodeArray
+      selectableCodeArray = selectableCodeArray.concat(itemSelectableCodeArray)
+    })
+    return selectableCodeArray
+  }
+
+  get _missingSpecKeys() {
+    const missingSpecKeyIndexes = this._selectUtil.missingSpecKeyIndexes
+    console.log(missingSpecKeyIndexes)
+    const missingSpecKeys = missingSpecKeyIndexes.map((item) => {
+      return this.realm.fences[item].title
+    })
+    return missingSpecKeys
+  }
+
+  get _selectedSpecValues() {
+    const selectedSpecValues = this._selectUtil.selectedSpecValues
+    return selectedSpecValues.join(",")
+  }
+
   defaultChange() {
     this._changeDefaultSelectStatus()
     this._changeSelectableStatus()
     this._changeSpecSelectCompletedStatus()
-
+    this.changeShoppingCount()
   }
 
   _changeDefaultSelectStatus() {
@@ -94,16 +108,17 @@ class RealmDataChangeUtil {
   _changeSpecSelectCompletedStatus() {
     const selectUtil = this._selectUtil
     this.realm.isSpecSelectCompleted = selectUtil.isSelectCompleted
-    console.log(this._missingSpecKeys)
     this.realm.selectedSpecValues = this._selectedSpecValues
     this.realm.missingSpecKeys = this._missingSpecKeys
   }
 
-  change(cellModel) {
+  changeSpec(cellModel) {
     this._changeItemSelectStatus(cellModel)
     this._changeSelectableStatus()
     this._changeSpecSelectCompletedStatus()
     this._changePreviewInfo()
+    
+    this.changeShoppingCount()
   }
 
   _changeItemSelectStatus(cellModel) {
@@ -163,18 +178,8 @@ class RealmDataChangeUtil {
     }
   }
 
-  get _missingSpecKeys() {
-    const missingSpecKeyIndexes = this._selectUtil.missingSpecKeyIndexes
-    console.log(missingSpecKeyIndexes)
-    const missingSpecKeys = missingSpecKeyIndexes.map((item) => {
-      return this.realm.fences[item].title
-    })
-    return  missingSpecKeys
-  }
-
-  get _selectedSpecValues() {
-    const selectedSpecValues = this._selectUtil.selectedSpecValues
-    return selectedSpecValues.join(",")
+  changeShoppingCount(shoppingCount) {
+    this.realm.isOutOfStock = this.realm.stock < shoppingCount
   }
 
 }

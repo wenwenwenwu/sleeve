@@ -29,10 +29,9 @@ Component({
       }
       const realm = new Realm(spu)
       this.data.realmDataChangeUtil = new RealmDataChangeUtil(realm)
-      const realmDataChangeUtil = this.data.realmDataChangeUtil
-      realmDataChangeUtil.defaultChange()
+      this.data.realmDataChangeUtil.defaultChange()
       this.setData({
-        realm: realmDataChangeUtil.realm,
+        realm: this.data.realmDataChangeUtil.realm,
       })
     }
   },
@@ -43,12 +42,21 @@ Component({
   methods: {
     onCellTap(event) {
       const model = event.detail.model
-      const realmDataChangeUtil = this.data.realmDataChangeUtil
-      realmDataChangeUtil.change(model)
+      this.data.realmDataChangeUtil.changeSpec(model)
       this.setData({
-        realm: realmDataChangeUtil.realm
+        realm: this.data.realmDataChangeUtil.realm
       })
     },
+
+    onSelectCount(event) {
+      const shoppingCount = event.detail.count
+      this.data.realmDataChangeUtil.changeShoppingCount(shoppingCount)
+      this.setData({
+        realm: this.data.realmDataChangeUtil.realm
+      })
+    },
+
+
 
   }
 })
