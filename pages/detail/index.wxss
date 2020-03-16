@@ -1,4 +1,10 @@
 /* pages/detail/index.wxss */
+
+.top{
+  width: 750rpx;
+  height: 680rpx;
+}
+
 .tabbar{
   position: fixed;
   bottom: 0rpx;

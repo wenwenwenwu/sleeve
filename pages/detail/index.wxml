@@ -1,7 +1,15 @@
 <!--pages/detail/index.wxml-->
 <view class="container">
-	<l-popup show="{{showRealm}}" content-align="bottom" >
-		<c-realm spu="{{spu}}" order-way="{{orderWay}}"></c-realm>
-	</l-popup>
-	<c-tab-bar class="tabbar" bind:onGotoHome="onGoToHome" bind:onGoToCart="onGoToCart" bind:onAddToCart="onAddToCart" bind:onBuy="onBuy" />
+	<swiper class="top" autoplay indicator-dots>
+		<block wx:for="{{spu.spu_img_list}}">
+			<swiper-item>
+				<image class="top" src="{{item.img}}" mode="aspectFill"></image>
+			</swiper-item>
+		</block>
+	</swiper>
+	<c-spu-description spu="{{spu}}" />
 </view>
+<l-popup show="{{showRealm}}" content-align="bottom">
+	<c-realm spu="{{spu}}" order-way="{{orderWay}}"></c-realm>
+</l-popup>
+<c-tab-bar class="tabbar" bind:onGotoHome="onGoToHome" bind:onGoToCart="onGoToCart" bind:onAddToCart="onAddToCart" bind:onBuy="onBuy" />

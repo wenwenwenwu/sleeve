@@ -1,0 +1,20 @@
+<!--components/spu-description/index.wxml-->
+<wxs src="../../wxs/price.wxs" module="p"></wxs>
+<view class="container">
+	<view class="left">
+		<text class="title">{{spu.title}}</text>
+		<view class="tags">
+			<block wx:for="{{tags}}">
+				<l-tag type="reading" bg-color="#DCEBE6" font-color="#157658" size="super-mini" l-class="l-tag">{{item}}</l-tag>
+			</block>
+		</view>
+		<text class="subtitle">{{spu.subtitle}}</text>
+		<view class="price-row">
+			<l-price value="{{p.mainPrice(spu.price, spu.discount_price)}}" l-unit-class="l-price-unit" color="#157658" value-size="24" unit-size="20" count-size="30" autofix />
+			<l-price wx:if="{{p.slashedPrice(spu.price, spu.discount_price)}}" value="{{p.slashedPrice(spu.price, spu.discount_price)}}" l-class="discount-price" size="26" color="#999999" bold="400" deleted />
+			<l-tag l-class="discount-tag" type="reading" bg-color="#c93756" wx:if="{{spu.discount_price}}" size="super-mini">折扣
+			</l-tag>
+		</view>
+	</view>
+	<view class="right"></view>
+</view>
