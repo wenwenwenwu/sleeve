@@ -1,6 +1,7 @@
 <!--components/cell/index.wxml-->
 <view class="container {{c.statusStyle(model.status).outer}}" bindtap="onTap">
 	<view class="content-container {{c.statusStyle(model.status).inner}}">
+		<image wx:if="{{model.skuImg}}" class="img" src="{{model.skuImg}}" mode="aspectFit"></image>
 		<text>{{model.value}}</text>
 	</view>
 </view>

@@ -11,6 +11,7 @@ class Cell {
   value
   status = CellStatus.SELECTABLE
   code
+  skuImg
 
   constructor(spec, row, line) {
     this.spec = spec
@@ -25,6 +26,7 @@ class Cell {
   _initCode() {
     this.code = `${this.keyID}-${this.valueID}`
   }
+
 }
 
 export {

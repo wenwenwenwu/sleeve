@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "c-realm": "/components/realm/index"
+    "c-realm": "/components/realm/index",
+    "c-tab-bar":"/components/tab-bar/index"
   }
 }

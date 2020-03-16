@@ -6,6 +6,14 @@
 .content-container{
   font-size: 24rpx;
   padding: 9rpx 15rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.img{
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 10rpx;
 }
 
 .outer-selectable{

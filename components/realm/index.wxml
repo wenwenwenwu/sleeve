@@ -1,7 +1,8 @@
 <!--components/realm/index.wxml-->
 <wxs src="../../wxs/price.wxs" module='p' />
 
-<view class="container">
+<scroll-view class="container" scroll-y>
+<view class="inner-container">
 	<view class="sku-preview">
 		<image class="sku-img" src="{{realm.previewImg}}"></image>
 		<view class="sku-description">
@@ -10,8 +11,8 @@
 				<view class="price-row">
 					<l-price value="{{p.mainPrice(realm.price, realm.discountPrice)}}" color="#157658" value-size="28" unit-size="20" autofix />
 					<l-price wx:if="{{realm.discountPrice}}" deleted value="{{p.slashedPrice(realm.price, realm.discountPrice)}}" color="#999999" value-size="26" l-class="discount-price" autofix />
-					<view wx:if="{{realm.stock && realm.stock >=10}}" class="realm.stock">{{stock}}</view>
-					<view wx:if="{{realm.stock && realm.stock<10 && realm.stock!= 0}}" class="stock-pinch">仅剩:{{realm.stock}}件</view>
+					<view wx:if="{{realm.stock && realm.stock >=10}}" class="realm.stock">库存：{{realm.stock}}件</view>
+					<view wx:if="{{realm.stock && realm.stock<10 && realm.stock!= 0}}" class="stock-pinch">仅剩：{{realm.stock}}件</view>
 				</view>
 				<view wx:if="{{!realm.isNoSpec}}" class="sku-pending">
 					<text wx:if="{{!realm.isSpecSelectCompleted}}">请选择：</text>
@@ -31,10 +32,12 @@
 	<text>购买数量</text>
 	<c-counter count="{{realm.shoppingCount}}" bind:lintap="onSelectCount"/>
 	</view>
-</view>
+	</view>
+</scroll-view>
 
 <view wx:if="{{!realm.isOutOfStock}}" class="bottom-btn">
-	<text>加入购物车</text>
+	<text wx:if="{{orderWay=='cart'}}">加入购物车</text>
+	<text wx:else >立即购买</text>
 </view>
 <view wx:else class="bottom-btn out-stock">
 	<text>暂时缺货</text>

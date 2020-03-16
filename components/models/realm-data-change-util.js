@@ -126,8 +126,7 @@ class RealmDataChangeUtil {
     this._changeSelectableStatus()
     this._changeSpecSelectCompletedStatus()
     this._changePreviewInfo()
-
-    this.changeShoppingCount()
+    this.changeShoppingCount(this.realm.shoppingCount)
   }
 
   _changeItemSelectStatus(cellModel) {

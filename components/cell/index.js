@@ -9,7 +9,7 @@ Component({
    */
   properties: {
     model: Object,
-    status: Object
+    status: Object,
   },
 
   /**

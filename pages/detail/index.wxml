@@ -1,4 +1,7 @@
 <!--pages/detail/index.wxml-->
 <view class="container">
-	<c-realm spu="{{spu}}"></c-realm>
+	<l-popup show="{{showRealm}}" content-align="bottom" >
+		<c-realm spu="{{spu}}" order-way="{{orderWay}}"></c-realm>
+	</l-popup>
+	<c-tab-bar class="tabbar" bind:onGotoHome="onGoToHome" bind:onGoToCart="onGoToCart" bind:onAddToCart="onAddToCart" bind:onBuy="onBuy" />
 </view>

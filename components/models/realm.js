@@ -10,7 +10,6 @@ import {
 
 class Realm {
   spu
-  defaultSku //创建realmDataChangeUtil用
   previewImg
   title
   price
@@ -31,8 +30,8 @@ class Realm {
     this._initTitle()
     this._initPrice()
     this._initDiscountPrice()
+    this._initStock()
     this._initIsNoSpec()
-    this.stock = null
     this._initFences()
     this.shoppingCount = Cart.SKU_MIN_COUNT
     this.isOutOfStock = false
@@ -54,11 +53,16 @@ class Realm {
     this.discountPrice = this.spu.discount_price
   }
 
+  _initStock() {
+    this.stock = this.spu.sku_list[0].stock
+  }
+
   _initIsNoSpec() {
     const spu = this.spu
     //一个单品一个规格
     if (spu.sku_list.length === 1 && spu.sku_list[0].specs.length === 0) {
       this.isNoSpec = true
+      return
     }
     this.isNoSpec = false
   }
@@ -70,9 +74,13 @@ class Realm {
     const fences = []
     specsArray.forEach((specs, index) => {
       const fence = new Fence(index, specs)
+      if (this.spu.sketch_spec_id && this.spu.sketch_spec_id === fence.id) {
+        fence.setFenceSketch(this.spu.sku_list)
+      }
       fences.push(fence)
     })
     this.fences = fences
+    console.log(this.fences)
   }
 
   get _rawSpecsArray() {

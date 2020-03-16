@@ -29,6 +29,21 @@ class Fence {
       cellIndex++
     })
   }
+
+
+  setFenceSketch(skuList) {
+    this.cells.forEach((item) => {
+      this._setCellSkuImg(item, skuList)
+    })
+  }
+
+  _setCellSkuImg(cell, skuList) {
+    const code = cell.code
+    const matchedSku = skuList.find(item => item.code.includes(code))
+    if (matchedSku) {
+      cell.skuImg = matchedSku.img
+    }
+  }
 }
 
 export {

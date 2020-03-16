@@ -1,0 +1,64 @@
+/* components/tab-bar/index.wxss */
+.sleeve {
+  font-family: iconfont !important;
+  color: #157658 !important;
+}
+
+.container {
+  height: 100rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+.buy{
+  background-color: #157658;
+  width: 260rpx;
+  height: 100%;
+}
+
+.cart{
+  background-color: #333333;
+  width: 260rpx;
+  height: 100%;
+}
+
+.btn-font{
+  color: #ffffff;
+  font-size: 32rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.icons {
+  color: #999999;
+  box-sizing: border-box;
+  width: 230rpx;
+  height: 100%;
+  padding: 0rpx 22rpx 0rpx 16rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.icons>view {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icons>view:nth-child(2){
+  padding-bottom: 1rpx;
+}
+
+.icons text {
+  font-size: 20rpx;
+}

@@ -14,11 +14,12 @@
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  margin: 30rpx 0rpx;
+  margin: 30rpx 0rpx 0rpx;
 }
 
 .cell{
   margin-right: 20rpx;
+  margin-bottom: 20rpx;
 }
 
 .line{
