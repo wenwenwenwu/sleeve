@@ -16,5 +16,13 @@
 			</l-tag>
 		</view>
 	</view>
-	<view class="right"></view>
+	<view class="right">
+		<l-button special open-type="share">
+			<view class="inner">
+				<l-icon name="share" size="24" />
+				<text>分</text>
+				<text>享</text>
+			</view>
+		</l-button>
+	</view>
 </view>

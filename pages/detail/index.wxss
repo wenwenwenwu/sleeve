@@ -9,3 +9,28 @@
   position: fixed;
   bottom: 0rpx;
 }
+
+.sku-pending{
+  background-color: white;
+  color: #333333;
+  font-size:28rpx;
+  box-sizing: border-box;
+  width: 750rpx;
+  height: 80rpx;
+  padding: 0rpx 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10rpx 0rpx;
+}
+
+.spcs>text:nth-child(1){
+  color: #999999;
+  font-size: 24rpx;
+}
+
+.specs>text:nth-child(2){
+  color: #157658;
+  font-size: 24rpx;
+}

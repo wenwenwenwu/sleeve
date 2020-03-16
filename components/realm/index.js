@@ -34,6 +34,7 @@ Component({
       this.setData({
         realm: this.data.realmDataChangeUtil.realm,
       })
+      this.changeSpec()
     }
   },
 
@@ -47,6 +48,7 @@ Component({
       this.setData({
         realm: this.data.realmDataChangeUtil.realm
       })
+      this.changeSpec()
     },
 
     onSelectCount(event) {
@@ -57,7 +59,11 @@ Component({
       })
     },
 
-
+    changeSpec(){
+      this.triggerEvent("changeSpec",{
+        realm: this.data.realm
+      })
+    }
 
   }
 })

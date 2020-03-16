@@ -8,8 +8,17 @@
 		</block>
 	</swiper>
 	<c-spu-description spu="{{spu}}" />
+	<view wx:if="{{!realm.isNoSpec}}" class="sku-pending">
+		<view class="specs">
+			<text wx:if="{{!realm.isSpecSelectCompleted}}">请选择：</text>
+			<text wx:else>已选：</text>
+			<text wx:if="{{!realm.isSpecSelectCompleted}}">{{realm.missingSpecKeys}}</text>
+			<text wx:else>{{realm.selectedSpecValues}}</text>
+		</view>
+		<l-icon name="right" color="#157658" size="24"></l-icon>
+	</view>
 </view>
 <l-popup show="{{showRealm}}" content-align="bottom">
-	<c-realm spu="{{spu}}" order-way="{{orderWay}}"></c-realm>
+	<c-realm spu="{{spu}}" order-way="{{orderWay}}" bind:changeSpec="onSpecChangae"></c-realm>
 </l-popup>
 <c-tab-bar class="tabbar" bind:onGotoHome="onGoToHome" bind:onGoToCart="onGoToCart" bind:onAddToCart="onAddToCart" bind:onBuy="onBuy" />

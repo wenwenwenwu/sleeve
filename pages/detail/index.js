@@ -11,7 +11,8 @@ Page({
   data: {
     spu:null,
     showRealm:false,
-    orderWay:"cart"
+    orderWay:"cart",
+    realm:null
   },
 
   /**
@@ -48,6 +49,13 @@ Page({
     this.setData({
       showRealm: true,
       orderWay: ShoppingWay.BUY
+    })
+  },
+
+  onSpecChangae(event){
+    const realm = event.detail.realm
+    this.setData({
+      realm
     })
   }
 })
