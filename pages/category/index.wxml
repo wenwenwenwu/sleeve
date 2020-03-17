@@ -5,20 +5,9 @@
 	</view>
 	<view class="main">
 		<l-segment scrollable even="{{false}}" placement="left" width="160" height="{{segmentHeight}}" item-height="90" l-active-class="segment-item-active" l-line-class="segment-line" l-inactive-class="segment-item">
-			<l-segment-item key="1" tab="唐门"></l-segment-item>
-			<l-segment-item key="2" tab="唐门"></l-segment-item>
-			<l-segment-item key="3" tab="唐门"></l-segment-item>
-			<l-segment-item key="4" tab="唐门"></l-segment-item>
-			<l-segment-item key="5" tab="唐门"></l-segment-item>
-			<l-segment-item key="6" tab="唐门"></l-segment-item>
-			<l-segment-item key="7" tab="唐门"></l-segment-item>
-			<l-segment-item key="8" tab="唐门"></l-segment-item>
-			<l-segment-item key="9" tab="唐门"></l-segment-item>
-			<l-segment-item key="10" tab="唐门"></l-segment-item>
-			<l-segment-item key="11" tab="唐门"></l-segment-item>
-			<l-segment-item key="11" tab="唐门"></l-segment-item>
-			<l-segment-item key="11" tab="唐门"></l-segment-item>
-			<l-segment-item key="11" tab="唐门"></l-segment-item>
+			<block wx:for="{{}}" wx:key="index">
+				<l-segment-item key="{{index}}" tab="{{}}"></l-segment-item>
+			</block>
 		</l-segment>
 		<view></view>
 	</view>

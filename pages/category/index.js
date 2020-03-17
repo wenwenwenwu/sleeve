@@ -12,19 +12,23 @@ Page({
     segmentHeight: 0
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  // LifeCycle
   onLoad: async function (options) {
-    const windowHeightRPX = await getWindowHeightRPX()
-    this.setData({
-      segmentHeight: windowHeightRPX - 60 - 20 - 2
-    })
+     this.setDynamicSegmentHeight()
   },
 
+
+  // Action
   onGoToSearch(event) {
     wx.navigateTo({
       url: '/pages/search/index',
+    })
+  },
+
+  async setDynamicSegmentHeight() {
+    const windowHeightRPX = await getWindowHeightRPX()
+    this.setData({
+      segmentHeight: windowHeightRPX - 60 - 20 - 2
     })
   }
 })

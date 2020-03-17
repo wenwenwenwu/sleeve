@@ -30,7 +30,7 @@ page {
 }
 
 .segment-item{
-  background-color: #f3f3f3 !important;
+  background-color: #ffffff !important;
   color: #666666 !important;
   font-size: 26rpx !important;
 }
