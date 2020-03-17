@@ -1,5 +1,4 @@
 /* pages/detail/index.wxss */
-
 .top{
   width: 750rpx;
   height: 680rpx;
@@ -33,4 +32,20 @@
 .specs>text:nth-child(2){
   color: #157658;
   font-size: 24rpx;
+}
+
+.explain{
+  background-color: white;
+  padding: 10rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-img-container{
+  margin-bottom: 200rpx;
+}
+
+.detail-img{
+  width: 100%;
 }

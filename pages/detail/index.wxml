@@ -1,5 +1,5 @@
 <!--pages/detail/index.wxml-->
-<view class="container">
+<scroll-view class="container" scroll-y>
 	<swiper class="top" autoplay indicator-dots>
 		<block wx:for="{{spu.spu_img_list}}">
 			<swiper-item>
@@ -8,7 +8,7 @@
 		</block>
 	</swiper>
 	<c-spu-description spu="{{spu}}" />
-	<view wx:if="{{!realm.isNoSpec}}" class="sku-pending">
+	<view wx:if="{{!realm.isNoSpec}}" class="sku-pending" bindtap="onAddToCart">
 		<view class="specs">
 			<text wx:if="{{!realm.isSpecSelectCompleted}}">请选择：</text>
 			<text wx:else>已选：</text>
@@ -17,7 +17,15 @@
 		</view>
 		<l-icon name="right" color="#157658" size="24"></l-icon>
 	</view>
-</view>
+	<view class="explain">
+		<c-sale-explain texts="{{explain}}"></c-sale-explain>
+	</view>
+	<view class="detail-img-container">
+		<block wx:for="{{spu.spu_detail_img_list}}" wx:key="{{index}}">
+			<image class="detail-img" src="{{item.img}}" style="widthFix"></image>
+		</block>
+	</view>
+</scroll-view>
 <l-popup show="{{showRealm}}" content-align="bottom">
 	<c-realm spu="{{spu}}" order-way="{{orderWay}}" bind:changeSpec="onSpecChangae"></c-realm>
 </l-popup>

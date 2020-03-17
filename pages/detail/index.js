@@ -3,6 +3,7 @@ import {
   Spu
 } from "../../models/spu"
 import { ShoppingWay } from "../../core/enum"
+import { SaleExplain } from "../../models/sale-explain"
 Page({
 
   /**
@@ -12,7 +13,8 @@ Page({
     spu:null,
     showRealm:false,
     orderWay:"cart",
-    realm:null
+    realm:null,
+    explain: Array
   },
 
   /**
@@ -21,12 +23,15 @@ Page({
   onLoad: async function (options) {
     const pid = options.pid
     const spu = await Spu.getDetail(pid)
+    const explain = await SaleExplain.getFixed()
     this.setData({
-      spu
+      spu,
+      explain
     })
   },
 
   onGoToHome(){
+    console.log("gou")
     wx.switchTab({
       url: '/pages/home/index',
     })

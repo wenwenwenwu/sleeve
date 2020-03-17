@@ -1,0 +1,29 @@
+/* components/sale-explain/index.wxss */
+.container {
+  background-color: white;
+  border: 2rpx dashed #dcebe6;
+  width: 710rpx;
+  box-sizing: border-box;
+  padding: 5rpx 25rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.inner {
+  color: #333333;
+  font-size: 24rpx;
+  border-bottom: 2rpx solid #dcebe6;
+  height: 50rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inner text:before {
+  content: "•";
+  margin-right: 26rpx;
+}
+
+.container>.inner:last-child {
+  border: none
+}

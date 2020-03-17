@@ -80,7 +80,6 @@ class Realm {
       fences.push(fence)
     })
     this.fences = fences
-    console.log(this.fences)
   }
 
   get _rawSpecsArray() {
