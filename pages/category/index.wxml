@@ -1,2 +1,25 @@
 <!--pages/category/index.wxml-->
-<text>pages/category/index.wxml</text>
+<view class="container">
+	<view class="search-container">
+		<l-button shape="square" width="710" height="60" l-class="search-btn" icon="research" icon-size="24" icon-color="#c4c9d2" shape="square" bind:lintap="onGoToSearch">搜索</l-button>
+	</view>
+	<view class="main">
+		<l-segment scrollable even="{{false}}" placement="left" width="160" height="{{segmentHeight}}" item-height="90" l-active-class="segment-item-active" l-line-class="segment-line" l-inactive-class="segment-item">
+			<l-segment-item key="1" tab="唐门"></l-segment-item>
+			<l-segment-item key="2" tab="唐门"></l-segment-item>
+			<l-segment-item key="3" tab="唐门"></l-segment-item>
+			<l-segment-item key="4" tab="唐门"></l-segment-item>
+			<l-segment-item key="5" tab="唐门"></l-segment-item>
+			<l-segment-item key="6" tab="唐门"></l-segment-item>
+			<l-segment-item key="7" tab="唐门"></l-segment-item>
+			<l-segment-item key="8" tab="唐门"></l-segment-item>
+			<l-segment-item key="9" tab="唐门"></l-segment-item>
+			<l-segment-item key="10" tab="唐门"></l-segment-item>
+			<l-segment-item key="11" tab="唐门"></l-segment-item>
+			<l-segment-item key="11" tab="唐门"></l-segment-item>
+			<l-segment-item key="11" tab="唐门"></l-segment-item>
+			<l-segment-item key="11" tab="唐门"></l-segment-item>
+		</l-segment>
+		<view></view>
+	</view>
+</view>

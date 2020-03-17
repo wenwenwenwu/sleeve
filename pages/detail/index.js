@@ -2,19 +2,30 @@
 import {
   Spu
 } from "../../models/spu"
-import { ShoppingWay } from "../../core/enum"
-import { SaleExplain } from "../../models/sale-explain"
+import {
+  ShoppingWay
+} from "../../core/enum"
+import {
+  SaleExplain
+} from "../../models/sale-explain"
+import {
+  px2rpx
+} from "../../miniprogram_npm/lin-ui/utils/util"
+import {
+  getSystemSize, getWindowHeightRPX
+} from "../../utils/system"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    spu:null,
-    showRealm:false,
-    orderWay:"cart",
-    realm:null,
-    explain: Array
+    spu: null,
+    showRealm: false,
+    orderWay: "cart",
+    realm: null,
+    explain: [],
+    scrollHeight: 0
   },
 
   /**
@@ -24,40 +35,43 @@ Page({
     const pid = options.pid
     const spu = await Spu.getDetail(pid)
     const explain = await SaleExplain.getFixed()
+    const windowHeightRPX = await getWindowHeightRPX()
+    const scrollHeight = windowHeightRPX - 100
     this.setData({
       spu,
-      explain
+      explain,
+      scrollHeight
     })
   },
 
-  onGoToHome(){
+  onGoToHome() {
     console.log("gou")
     wx.switchTab({
       url: '/pages/home/index',
     })
   },
 
-  onGoToCart(){
+  onGoToCart() {
     wx.switchTab({
       url: '/pages/cart/index',
     })
   },
 
-  onAddToCart(){
+  onAddToCart() {
     this.setData({
       showRealm: true,
-      orderWay:ShoppingWay.CART
+      orderWay: ShoppingWay.CART
     })
   },
 
-  onBuy(){
+  onBuy() {
     this.setData({
       showRealm: true,
       orderWay: ShoppingWay.BUY
     })
   },
 
-  onSpecChangae(event){
+  onSpecChangae(event) {
     const realm = event.detail.realm
     this.setData({
       realm

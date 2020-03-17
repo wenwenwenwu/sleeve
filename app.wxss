@@ -5,12 +5,12 @@ page{
 
 @font-face {
   font-family: 'iconfont';  /* project id 1693266 */
-  src: url('//at.alicdn.com/t/font_1693266_0uwmmu0e8uj.eot');
-  src: url('//at.alicdn.com/t/font_1693266_0uwmmu0e8uj.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1693266_0uwmmu0e8uj.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1693266_0uwmmu0e8uj.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1693266_0uwmmu0e8uj.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1693266_0uwmmu0e8uj.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_1693266_mczl484zvj.eot');
+  src: url('//at.alicdn.com/t/font_1693266_mczl484zvj.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1693266_mczl484zvj.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1693266_mczl484zvj.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1693266_mczl484zvj.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1693266_mczl484zvj.svg#iconfont') format('svg');
 }
 
 .sleeve{
@@ -19,5 +19,9 @@ page{
 
 .l-icon-home:before{
   content: "\e9ce";
+}
+
+.l-icon-search:before{
+  content: "\e612";
 }
 

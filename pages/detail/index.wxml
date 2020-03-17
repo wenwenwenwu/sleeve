@@ -1,5 +1,5 @@
 <!--pages/detail/index.wxml-->
-<scroll-view class="container" scroll-y>
+<scroll-view class="container" scroll-y style="height:{{scrollHeight}}rpx">
 	<swiper class="top" autoplay indicator-dots>
 		<block wx:for="{{spu.spu_img_list}}">
 			<swiper-item>
