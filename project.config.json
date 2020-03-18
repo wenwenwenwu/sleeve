@@ -71,6 +71,12 @@
 					"pathName": "pages/category/index",
 					"query": "pid=2",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/search/index",
+					"pathName": "pages/search/index",
+					"scene": null
 				}
 			]
 		}
