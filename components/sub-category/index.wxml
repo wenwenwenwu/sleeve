@@ -1,0 +1,13 @@
+<!--components/sub-category/index.wxml-->
+<view class="container">
+	<image class="banner" wx:if="{{bannerImg}}" src="{{bannerImg}}"></image>
+	<text class="title">- 全部分类 -</text>
+	<l-grid class="inner-container">
+		<block wx:for="{{categories}}" wx:key="index">
+			<l-grid-item class="grid-item" slot="{{index}}" key="{{index}}">
+				<image mode="aspectFit" class="img" src="{{item.img}}"></image>
+				<text>{{item.name}}</text>
+			</l-grid-item>
+		</block>
+	</l-grid>
+</view>

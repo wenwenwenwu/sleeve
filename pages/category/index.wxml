@@ -4,11 +4,13 @@
 		<l-button shape="square" width="710" height="60" l-class="search-btn" icon="research" icon-size="24" icon-color="#c4c9d2" shape="square" bind:lintap="onGoToSearch">搜索</l-button>
 	</view>
 	<view class="main">
-		<l-segment scrollable even="{{false}}" placement="left" width="160" height="{{segmentHeight}}" item-height="90" l-active-class="segment-item-active" l-line-class="segment-line" l-inactive-class="segment-item">
-			<block wx:for="{{}}" wx:key="index">
-				<l-segment-item key="{{index}}" tab="{{}}"></l-segment-item>
+		<l-segment scrollable even="{{false}}" placement="left" width="160" height="{{segmentHeight}}" item-height="90" active-key="{{defaultRootID}}" l-active-class="segment-item-active" l-line-class="segment-line" l-inactive-class="segment-item" bind:linchange="onSegChange">
+			<block wx:for="{{roots}}" wx:key="index">
+				<l-segment-item key="{{item.id}}" tab="{{item.name}}"></l-segment-item>
 			</block>
 		</l-segment>
-		<view></view>
+		<view class="right">
+			<c-sub-category categories="{{currentSubs}}" bannerImg="{{currentBannerImg}}" />
+		</view>
 	</view>
 </view>

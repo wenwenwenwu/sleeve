@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "c-sub-category": "/components/sub-category/index"
+  }
 }
