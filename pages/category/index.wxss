@@ -49,3 +49,11 @@ page {
   justify-content: space-between;
   border-top: 2rpx solid #f3f3f3;
 }
+
+.right{
+  border-left: 2rpx solid #f3f3f3;
+  width: 588rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

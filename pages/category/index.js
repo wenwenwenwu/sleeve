@@ -5,6 +5,10 @@ import {
   Categories
 } from "../../models/categories"
 
+import{
+  SpuListType
+} from "../../core/enum"
+
 // pages/category/index.js
 Page({
 
@@ -44,6 +48,15 @@ Page({
     this.setData({
       currentSubs,
       currentBannerImg: currentRoot.img
+    })
+  },
+
+  onJumpToSpuList(event) {
+    const cid = event.detail.cid
+    const spuListType = SpuListType.SUB_CATEGORY
+    console.log(cid)
+    wx.navigateTo({
+      url: `/pages/spu-list/index?cid=${cid}type=${spuListType}`,
     })
   },
 

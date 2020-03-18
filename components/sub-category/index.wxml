@@ -4,7 +4,7 @@
 	<text class="title">- 全部分类 -</text>
 	<l-grid class="inner-container">
 		<block wx:for="{{categories}}" wx:key="index">
-			<l-grid-item class="grid-item" slot="{{index}}" key="{{index}}">
+			<l-grid-item class="grid-item" slot="{{index}}" key="{{index}}" bind:linitemtap="onTapGridItem">
 				<image mode="aspectFit" class="img" src="{{item.img}}"></image>
 				<text>{{item.name}}</text>
 			</l-grid-item>

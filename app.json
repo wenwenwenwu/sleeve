@@ -5,7 +5,8 @@
     "pages/detail/index",
     "pages/cart/index",
     "pages/my/index",
-    "pages/search/index"
+    "pages/search/index",
+    "pages/spu-list/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

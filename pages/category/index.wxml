@@ -10,7 +10,7 @@
 			</block>
 		</l-segment>
 		<view class="right">
-			<c-sub-category categories="{{currentSubs}}" bannerImg="{{currentBannerImg}}" />
+			<c-sub-category categories="{{currentSubs}}" bannerImg="{{currentBannerImg}}" bind:itemTap="onJumpToSpuList" />
 		</view>
 	</view>
 </view>

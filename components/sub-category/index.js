@@ -19,6 +19,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    onTapGridItem(event){
+      const id = event.detail.key
+      this.triggerEvent("itemTap",{
+        cid:id
+      })
+    }
   }
 })
