@@ -5,7 +5,7 @@ import {
   Categories
 } from "../../models/categories"
 
-import{
+import {
   SpuListType
 } from "../../core/enum"
 
@@ -20,8 +20,8 @@ Page({
     category: null,
     defaultRootID: 2,
     roots: [],
-    currentSubs: [],
-    currentBannerImg: ""
+    subsContentArray: [],
+    currentIndex: 4
   },
 
   // LifeCycle
@@ -40,14 +40,9 @@ Page({
 
   onSegChange(event) {
     const rootID = event.detail.activeKey
-    console.log(rootID)
-    const currentSubs = this.data.category.getSubs(rootID)
-    console.log(currentSubs)
-    const currentRoot = this.data.category.getRoots(rootID)
-    console.log(currentRoot)
+    const rootIndex = this.data.category.getRootIndex(rootID)
     this.setData({
-      currentSubs,
-      currentBannerImg: currentRoot.img
+      currentIndex: rootIndex
     })
   },
 
@@ -58,6 +53,10 @@ Page({
     wx.navigateTo({
       url: `/pages/spu-list/index?cid=${cid}type=${spuListType}`,
     })
+  },
+
+  stopTouchMove(){
+    return false
   },
 
   // Method
@@ -73,12 +72,12 @@ Page({
     this.data.category = category
     await category.getAll()
     const roots = category.getRoots()
-    const defaultRoot = this.getDefaultRoot(roots)
-    const currentSubs = category.getSubs(defaultRoot.id)
+    const subsContentArray = category.getSubsContentArray()
+    const rootIndex = this.data.category.getRootIndex(this.data.defaultRootID)
     this.setData({
       roots,
-      currentSubs,
-      currentBannerImg: defaultRoot.img
+      subsContentArray,
+      currentIndex: rootIndex
     })
   },
 

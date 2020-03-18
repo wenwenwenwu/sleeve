@@ -57,3 +57,14 @@ page {
   flex-direction: column;
   align-items: center;
 }
+
+.swiper{
+  border-left: 2rpx solid #f3f3f3;
+  width: 588rpx;
+}
+
+.swiper-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

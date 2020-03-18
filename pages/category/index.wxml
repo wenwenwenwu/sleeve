@@ -9,8 +9,12 @@
 				<l-segment-item key="{{item.id}}" tab="{{item.name}}"></l-segment-item>
 			</block>
 		</l-segment>
-		<view class="right">
-			<c-sub-category categories="{{currentSubs}}" bannerImg="{{currentBannerImg}}" bind:itemTap="onJumpToSpuList" />
-		</view>
+		<swiper class="swiper" style="height:{{segmentHeight}}rpx" vertical current="{{currentIndex}}">
+			<block wx:for="{{subsContentArray}}" wx:key="index">
+				<swiper-item class="swiper-item" catch:touchmove="stopTouchMove">
+					<c-sub-category categories="{{item.subs}}" bannerImg="{{item.bannerImg}}" bind:itemTap="onJumpToSpuList" />
+				</swiper-item>
+			</block>
+		</swiper>
 	</view>
 </view>
