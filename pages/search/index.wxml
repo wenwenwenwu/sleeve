@@ -1,15 +1,38 @@
 <!--pages/search/index.wxml-->
 <view class="header">
-	<l-search-bar placeholder="输入商品名称" maxlength="9" bg-color="#f1f1f1" l-class="input" />
+	<l-search-bar placeholder="输入商品名称" maxlength="9" bg-color="#f1f1f1" l-class="input" bind:linconfirm="onSearch" bind:lincancel="onCancel" />
 </view>
-<view class="container">
-	<view class="history-container">
+<view wx:if="{{search}}" class="recommend-container">
+	<view wx:if="{{historyTags != false}}" class="history-container">
 		<view class="history-title">
 			<view class="slider"></view>
 			<text>历史搜索</text>
-      <view style="flex:1"></view>
-			<l-icon class="icon" name="delete" color="#999999" size="32" />
+			<view style="flex:1"></view>
+			<l-icon class="icon" name="delete" color="#999999" size="32" bind:tap="onClearHistory" />
 		</view>
-		<view class="history-tags"></view>
+		<view class="history-tags">
+			<block wx:for="{{historyTags}}" wx:key="index">
+				<l-tag l-class="tag" name="{{item}}" bind:lintap="onSearch">
+					{{item}}
+				</l-tag>
+			</block>
+		</view>
+	</view>
+	<view class="history-container">
+		<view class="history-title">
+			<view class="slider"></view>
+			<text>热门搜索</text>
+		</view>
+		<view class="history-tags">
+			<block wx:for="{{hotTags}}" wx:key="index">
+				<l-tag l-class="tag" l-select-class="tag-selected" select="{{item.highlight===1}}" name="{{item.title}}" bind:lintap="onSearch">
+					{{item.title}}
+				</l-tag>
+			</block>
+		</view>
 	</view>
 </view>
+<view wx:else class="result-container">
+	<l-water-flow class="water-flow" generic:l-water-flow-item="c-spu-preview"></l-water-flow>
+</view>
+<l-loading></l-loading>

@@ -8,6 +8,7 @@ page {
 }
 
 .header {
+  background-color: white;
   border-bottom: 1rpx solid #f3f3f3;
   padding-bottom: 14rpx;
   width: 750rpx;
@@ -16,14 +17,13 @@ page {
   z-index: 77;
 }
 
-.container{
+.recommend-container{
   padding-top: 70rpx;
 }
 
 .history-container{
   display: flex;
   flex-direction: column;
-
 }
 
 .history-title{
@@ -47,4 +47,36 @@ page {
 .history-title text{
   color: #333333;
   font-size: 28rpx;
+}
+
+.history-tags{
+  padding: 20rpx 0rpx 0rpx 30rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.tag{
+  background-color: #f3f3f3 !important;
+  color: #666666 !important;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.tag-selected{
+  background-color: #DCEBE6 !important;
+  color: #157658 !important;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.result-container{
+  padding: 100rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.water-flow{
+  width: 100%;
 }
