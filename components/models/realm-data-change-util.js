@@ -150,6 +150,7 @@ class RealmDataChangeUtil {
     if (!sku) {
       return
     }
+    this.realm.selectedSku = sku
     this.realm.title = sku.title
     this.realm.previewImg = sku.img
     this.realm.price = sku.price

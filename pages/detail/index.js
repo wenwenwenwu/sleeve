@@ -76,5 +76,9 @@ Page({
     this.setData({
       realm
     })
+  },
+
+  onShopping(event){
+    console.log(event)
   }
 })

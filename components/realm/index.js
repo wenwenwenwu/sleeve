@@ -59,11 +59,33 @@ Component({
       })
     },
 
-    changeSpec(){
-      this.triggerEvent("changeSpec",{
+    changeSpec() {
+      this.triggerEvent("changeSpec", {
         realm: this.data.realm
       })
-    }
+    },
 
+    onBuyOrCart(event) {
+      const realm = this.data.realm
+      const isNoSpec = realm.isNoSpec
+      const isSpecSelectCompleted = realm.isSpecSelectCompleted
+      const missingSpecKeys = realm.missingSpecKeys
+      const selectedSku = realm.selectedSku
+      if (!isNoSpec && !isSpecSelectCompleted) { //多种规格且选择未完成
+        wx.showToast({
+          icon: "none",
+          title: `请选择:${missingSpecKeys.join(",")}`,
+          duration: 3000
+        })
+        return
+      }
+      this.triggerEvent('shopping', {
+        orderWay: this.properties.orderWay,
+        spuId: this.properties.spu.id,
+        sku: selectedSku,
+        skuCount: this.data.realm.shoppingCount
+      });
+
+    }
   }
 })

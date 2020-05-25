@@ -16,12 +16,13 @@ class Realm {
   discountPrice
   stock
   selectedSpecValues
-  missSpecKeys
+  missingSpecKeys
   isNoSpec
   fences
   isSpecSelectCompleted
   shoppingCount
   isOutOfStock
+  selectedSku
 
   constructor(spu) {
     this.spu = spu

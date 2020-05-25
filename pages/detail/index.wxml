@@ -27,6 +27,6 @@
 	</view>
 </scroll-view>
 <l-popup show="{{showRealm}}" content-align="bottom">
-	<c-realm spu="{{spu}}" order-way="{{orderWay}}" bind:changeSpec="onSpecChangae"></c-realm>
+	<c-realm spu="{{spu}}" order-way="{{orderWay}}" bind:changeSpec="onSpecChangae" bind:shopping="onShopping"></c-realm>
 </l-popup>
 <c-tab-bar class="tabbar" bind:onGotoHome="onGoToHome" bind:onGoToCart="onGoToCart" bind:onAddToCart="onAddToCart" bind:onBuy="onBuy" />

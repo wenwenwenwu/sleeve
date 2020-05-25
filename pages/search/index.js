@@ -7,7 +7,9 @@ import {
 import {
   Search
 } from "../../models/search"
-import { showToast } from "../../utils/ui"
+import {
+  showToast
+} from "../../utils/ui"
 
 
 // pages/search/index.js
@@ -39,7 +41,7 @@ Page({
       items: []
     })
     const keyword = event.detail.value || event.detail.name
-    if (!keyword){
+    if (!keyword) {
       showToast("请输入关键字")
       return
     }
@@ -50,9 +52,9 @@ Page({
     })
     const paging = Search.search(keyword)
     wx.lin.showLoading({
-      color:"#157658",
-      type:"flash",
-      fullScreen:true
+      color: "#157658",
+      type: "flash",
+      fullScreen: true
     })
     const data = await paging.getPagingData()
     wx.lin.hideLoading()
