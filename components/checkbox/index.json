@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "c-counter":"/components/counter/index"
+  }
+}

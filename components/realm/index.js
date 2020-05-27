@@ -71,6 +71,7 @@ Component({
       const isSpecSelectCompleted = realm.isSpecSelectCompleted
       const missingSpecKeys = realm.missingSpecKeys
       const selectedSku = realm.selectedSku
+      const shoppingCount = realm.shoppingCount
       if (!isNoSpec && !isSpecSelectCompleted) { //多种规格且选择未完成
         wx.showToast({
           icon: "none",
@@ -83,7 +84,7 @@ Component({
         orderWay: this.properties.orderWay,
         spuId: this.properties.spu.id,
         sku: selectedSku,
-        skuCount: this.data.realm.shoppingCount
+        skuCount: shoppingCount
       });
 
     }

@@ -1,2 +1,10 @@
 <!--pages/cart/index.wxml-->
-<text>pages/cart/index.wxml</text>
+<view class="container">
+	<view wx:if="{{!isEmpty}}" class="cart-container">
+		<block wx:for="{{cartItems}}">
+			<c-cart-item cartItem="{{item}}" >
+			</c-cart-item>
+		</block>
+	</view>
+	<l-status-show show="{{isEmpty}}" full-screen="{{false}}" image="/images/empty.png" describe="购物车空空的，去逛逛吧" button-text="去逛逛" l-class="empty-container" l-image-class="empty-image" l-describe-class="empty-description" l-button-class='empty-button'></l-status-show>
+</view>

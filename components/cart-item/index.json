@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "c-counter":"/components/counter/index",
+    "c-checkbox":"/components/checkbox/index"
+  }
+}

@@ -14,6 +14,8 @@ import {
 import {
   getSystemSize, getWindowHeightRPX
 } from "../../utils/system"
+import { Cart } from "../../models/cart"
+import { CartItem } from "../../models/cart-item"
 Page({
 
   /**
@@ -25,7 +27,8 @@ Page({
     orderWay: "cart",
     realm: null,
     explain: [],
-    scrollHeight: 0
+    scrollHeight: 0,
+    cartItemCount:0
   },
 
   /**
@@ -42,6 +45,7 @@ Page({
       explain,
       scrollHeight
     })
+    this.updateTabbarCartItemCount()
   },
 
   onGoToHome() {
@@ -79,6 +83,22 @@ Page({
   },
 
   onShopping(event){
-    console.log(event)
+    const chosenSku = event.detail.sku
+    const skuCount = event.detail.skuCount
+    if(event.detail.orderWay === ShoppingWay.CART){
+      const cart = new Cart()
+      const cartItem = new CartItem(chosenSku,skuCount)
+      cart.addItem(cartItem)
+      this.updateTabbarCartItemCount()
+    }
+  },
+
+  // Method
+  updateTabbarCartItemCount(){
+    const cart = new Cart()
+    this.setData({
+      cartItemCount: cart.getCartItemCount(),
+      showRealm: false
+    })
   }
 })
