@@ -20,7 +20,8 @@ Component({
    */
   data: {
     realmDataChangeUtil: Object,
-    realm: Object
+    realm: Object,
+    shoppingCount: 1
   },
 
   observers: {
@@ -32,9 +33,10 @@ Component({
       this.data.realmDataChangeUtil = new RealmDataChangeUtil(realm)
       this.data.realmDataChangeUtil.changeDefaultSku()
       this.setData({
-        realm: this.data.realmDataChangeUtil.realm,
+        realm: this.data.realmDataChangeUtil.realm
       })
       this.changeSpec()
+      this.changeShoppingCount()
     }
   },
 
@@ -48,6 +50,7 @@ Component({
       this.setData({
         realm: this.data.realmDataChangeUtil.realm
       })
+      // this.changeShoppingCount()
       this.changeSpec()
     },
 
@@ -57,6 +60,7 @@ Component({
       this.setData({
         realm: this.data.realmDataChangeUtil.realm
       })
+      this.changeShoppingCount()
     },
 
     changeSpec() {
@@ -87,6 +91,12 @@ Component({
         skuCount: shoppingCount
       });
 
+    },
+
+    changeShoppingCount(){
+      const realm = this.data.realm
+      const shoppingCount = realm.shoppingCount
+      return shoppingCount
     }
   }
 })

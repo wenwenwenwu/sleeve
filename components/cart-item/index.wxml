@@ -23,13 +23,14 @@
 					<text class="title">{{cartItem.sku.title}}</text>
 				</view>
 				<view wx:if="{{specStr}}" class="spec">
-				<text>{{specStr}}</text>
+					<text>{{specStr}}</text>
 				</view>
 			</view>
 			<view class="price-container">
-			<l-price color="#157658" count-size="28" value="{{cartItem.sku.price}}"></l-price>
-			<c-counter bind:linout="onOutNumber" max="{{cartItem.sku.stock}}" bind:lintap="onSelectCount" count="{{cartItem.count}}"></c-counter>
+				<l-price color="#157658" count-size="28" value="{{cartItem.sku.price}}"></l-price>
+				<c-counter bind:linout="onOutNumber" max="{{stock}}" bind:lintap="onSelectCount" count="{{count}}"></c-counter>
 			</view>
 		</view>
+		<view wx:if="{{soldout || !online}}" class="sold-out"></view>
 	</view>
 </view>

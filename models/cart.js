@@ -15,6 +15,14 @@ class Cart {
     return this
   }
 
+  static isSoldOut(cartItem){
+    return cartItem.sku.store === 0
+  }
+
+  static isOnline(cartItem){
+    return cartItem.sku.online
+  }
+
   addItem(newItem) {
     if (this._beyoundMaxCartItemCount()) {
       throw new Error("超过购物车最大数量")
