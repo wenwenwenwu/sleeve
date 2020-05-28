@@ -64,6 +64,7 @@
     "l-water-flow": "/miniprogram_npm/lin-ui/water-flow/index",
     "l-loading":"/miniprogram_npm/lin-ui/loading/index",
     "l-status-show":"/miniprogram_npm/lin-ui/status-show/index",
+    "l-slider-view":"/miniprogram_npm/lin-ui/slide-view/index",
     "c-spu-preview": "/components/spu-preview/index",
     "c-counter": "/components/counter/index"
   }
