@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "c-cart-item":"/components/cart-item/index"
+    "c-cart-item":"/components/cart-item/index",
+    "c-checkbox":"/components/checkbox/index"
   }
 }

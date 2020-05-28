@@ -63,6 +63,7 @@ class Realm {
     //一个单品一个规格
     if (spu.sku_list.length === 1 && spu.sku_list[0].specs.length === 0) {
       this.isNoSpec = true
+      this.selectedSku = spu.sku_list[0]
       return
     }
     this.isNoSpec = false

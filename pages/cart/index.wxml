@@ -2,9 +2,25 @@
 <view class="container">
 	<view wx:if="{{!isEmpty}}" class="cart-container">
 		<block wx:for="{{cartItems}}">
-			<c-cart-item cartItem="{{item}}" >
+			<c-cart-item cartItem="{{item}}">
 			</c-cart-item>
 		</block>
 	</view>
-	<l-status-show show="{{isEmpty}}" full-screen="{{false}}" image="/images/empty.png" describe="购物车空空的，去逛逛吧" button-text="去逛逛" l-class="empty-container" l-image-class="empty-image" l-describe-class="empty-description" l-button-class='empty-button'></l-status-show>
+	<l-status-show show="{{isEmpty}}" full-screen="{{false}}" image="/images/empty.png" describe="购物车空空的，去逛逛吧" button-text="去逛逛" l-class="empty-container" l-image-class="empty-image" l-describe-class="empty-description" l-button-class='empty-button'>
+	</l-status-show>
+	<view wx:if="{{!isEmpty}}" class="total-container">
+		<view class="data-container">
+			<view class="checkbox-container">
+				<c-checkbox bind:check="onCheckAll" checked="{{allChecked}}" />
+				<text>全选</text>
+			</view>
+			<view class="price-container">
+				<text>合计</text>
+				<l-price value="{{totalPrice}}" color="#157658" count-size="32" unit-size="32" />
+			</view>
+		</view>
+		<view bind:tap="onSettle" class="settlement-btn {{totalSkuCount===0?'disabled':''}}">
+			<text>结算（{{totalSkuCount}}）</text>
+		</view>
+	</view>
 </view>
