@@ -18,7 +18,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    onChecked(event) {
+    onCheck(event) {
       let newChecked = !this.properties.checked
       this.setData({
         checked: newChecked

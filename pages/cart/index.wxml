@@ -2,7 +2,7 @@
 <view class="container">
 	<view wx:if="{{!isEmpty}}" class="cart-container">
 		<block wx:for="{{cartItems}}">
-			<c-cart-item cartItem="{{item}}">
+			<c-cart-item cartItem="{{item}}" bind:itemDelete="onDeleteItem" bind:itemCheck="onSingleCheck" bind:countFloat="onCountFloat">
 			</c-cart-item>
 		</block>
 	</view>
@@ -11,7 +11,7 @@
 	<view wx:if="{{!isEmpty}}" class="total-container">
 		<view class="data-container">
 			<view class="checkbox-container">
-				<c-checkbox bind:check="onCheckAll" checked="{{allChecked}}" />
+				<c-checkbox bind:checked="onCheckAll" checked="{{allChecked}}" />
 				<text>全选</text>
 			</view>
 			<view class="price-container">
@@ -24,3 +24,4 @@
 		</view>
 	</view>
 </view>
+<view style="height: 100rpx"></view>

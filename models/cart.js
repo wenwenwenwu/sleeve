@@ -1,3 +1,6 @@
+import { CartItem } from "./cart-item"
+import { Sku } from "./sku"
+
 class Cart {
   static SKU_MIN_COUNT = 1
   static SKU_MAX_COUNT = 77
@@ -23,6 +26,33 @@ class Cart {
     return cartItem.sku.online
   }
 
+  checkItem(skuId){
+    const cartItem = this._findEqualItem(skuId)
+    cartItem.checked = !cartItem.checked
+    this._refreshStorage()
+    console.log(this._getCartData().items)
+  }
+
+  isAllChecked(){
+    let isAllChecked = true
+    const items = this._getCartData().items
+    for (const item of items) {
+      if(!item.checked){
+        isAllChecked = false
+        break
+      }
+    }
+    return isAllChecked
+  }
+
+  checkAll(checked){
+    const cartData = this._getCartData()
+    cartData.items.forEach(item=>{
+      item.checked = checked
+    })
+    this._refreshStorage()
+  }
+
   addItem(newItem) {
     if (this._beyoundMaxCartItemCount()) {
       throw new Error("超过购物车最大数量")
@@ -42,6 +72,12 @@ class Cart {
     return this._getCartData()
   }
 
+  async getAllSkuFromServer(){
+    const skuIds = this._getSkuIds()
+    const serverData = await Sku.getSkuByIds(skuIds)
+    console.log(serverData)
+  }
+
   isEmpty(){
     const cartData = this._getCartData()
     return cartData.items.length === 0
@@ -49,6 +85,34 @@ class Cart {
 
   getCartItemCount(){
     return this._getCartData().items.length
+  }
+
+  getCheckedItems(){
+    const cartItems = this._getCartData().items
+    let checkedCartItems = []
+    cartItems.forEach(cartItem => {
+      if(cartItem.checked){
+        checkedCartItems.push(cartItem)
+      }
+    });
+    return checkedCartItems
+  }
+
+  replaceItemCount(skuId,newCount){
+    const oldItem = this._findEqualItem(skuId)
+    if(!oldItem){
+      console.log("异常情况，更新CartItem中的数量不应找不到相应数据")
+      return
+    }
+    if(newCount < 1){
+      console.log("异常情况，cartItem中的count不可能小于1")
+      return
+    }
+    oldItem.count = newCount
+    if(oldItem.count>=Cart.SKU_MAX_COUNT){
+      oldItem.count=Cart.SKU_MAX_COUNT
+    }
+    this._refreshStorage()
   }
 
   _beyoundMaxCartItemCount() {
@@ -88,8 +152,7 @@ class Cart {
 
   _findEqualItem(skuId) {
     const items = this._getCartData().items
-    const oldItem = items.find(item => item.skuId == skuId)
-    return oldItem
+    return items.find(item => item.skuId == skuId)
   }
 
   _combineItems(item, count) {
@@ -106,6 +169,14 @@ class Cart {
   _findEqualItemIndex(skuId) {
     const cartData = this._getCartData()
     return cartData.items.findIndex(item => item.skuId == skuId)
+  }
+
+  _getSkuIds(){
+    const cartData = this._getCartData()
+    if(cartData.items.length==0){
+      return []
+    }
+    return cartData.items.map(item=>item.skuId)
   }
 
 }
