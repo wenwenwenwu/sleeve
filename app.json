@@ -6,7 +6,8 @@
     "pages/cart/index",
     "pages/my/index",
     "pages/search/index",
-    "pages/spu-list/index"
+    "pages/spu-list/index",
+    "pages/order/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -49,6 +50,7 @@
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "l-dialog":"/miniprogram_npm/lin-ui/dialog/index",
     "l-grid": "/miniprogram_npm/lin-ui/grid/index",
     "l-grid-item": "/miniprogram_npm/lin-ui/grid-item/index",
     "l-price": "/miniprogram_npm/lin-ui/price/index",
@@ -60,12 +62,13 @@
     "l-button": "/miniprogram_npm/lin-ui/button/index",
     "l-segment": "/miniprogram_npm/lin-ui/segment/index",
     "l-segment-item": "/miniprogram_npm/lin-ui/segment-item/index",
-    "l-search-bar":"/miniprogram_npm/lin-ui/search-bar/index",
+    "l-search-bar": "/miniprogram_npm/lin-ui/search-bar/index",
     "l-water-flow": "/miniprogram_npm/lin-ui/water-flow/index",
-    "l-loading":"/miniprogram_npm/lin-ui/loading/index",
-    "l-status-show":"/miniprogram_npm/lin-ui/status-show/index",
-    "l-slider-view":"/miniprogram_npm/lin-ui/slide-view/index",
+    "l-loading": "/miniprogram_npm/lin-ui/loading/index",
+    "l-status-show": "/miniprogram_npm/lin-ui/status-show/index",
+    "l-slider-view": "/miniprogram_npm/lin-ui/slide-view/index",
     "c-spu-preview": "/components/spu-preview/index",
-    "c-counter": "/components/counter/index"
+    "c-counter": "/components/counter/index",
+    "c-address":"/components/address/index"
   }
 }

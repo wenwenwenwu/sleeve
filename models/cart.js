@@ -1,5 +1,9 @@
-import { CartItem } from "./cart-item"
-import { Sku } from "./sku"
+import {
+  CartItem
+} from "./cart-item"
+import {
+  Sku
+} from "./sku"
 
 class Cart {
   static SKU_MIN_COUNT = 1
@@ -18,26 +22,26 @@ class Cart {
     return this
   }
 
-  static isSoldOut(cartItem){
+  static isSoldOut(cartItem) {
     return cartItem.sku.store === 0
   }
 
-  static isOnline(cartItem){
+  static isOnline(cartItem) {
     return cartItem.sku.online
   }
 
-  checkItem(skuId){
+  checkItem(skuId) {
     const cartItem = this._findEqualItem(skuId)
     cartItem.checked = !cartItem.checked
     this._refreshStorage()
     console.log(this._getCartData().items)
   }
 
-  isAllChecked(){
+  isAllChecked() {
     let isAllChecked = true
     const items = this._getCartData().items
     for (const item of items) {
-      if(!item.checked){
+      if (!item.checked) {
         isAllChecked = false
         break
       }
@@ -45,9 +49,9 @@ class Cart {
     return isAllChecked
   }
 
-  checkAll(checked){
+  checkAll(checked) {
     const cartData = this._getCartData()
-    cartData.items.forEach(item=>{
+    cartData.items.forEach(item => {
       item.checked = checked
     })
     this._refreshStorage()
@@ -68,49 +72,55 @@ class Cart {
     this._refreshStorage()
   }
 
-  getAllCartItemFromLocal(){
+  getAllCartItemFromLocal() {
     return this._getCartData()
   }
 
-  async getAllSkuFromServer(){
+  async getAllSkuFromServer() {
+    const cartData = this._getCartData()
+    if(cartData.items.length === 0){
+      return null
+    }
     const skuIds = this._getSkuIds()
     const serverData = await Sku.getSkuByIds(skuIds)
-    console.log(serverData)
+    this._refreshByServerData(serverData)
+    this._refreshStorage()
+    return this._getCartData()
   }
 
-  isEmpty(){
+  isEmpty() {
     const cartData = this._getCartData()
     return cartData.items.length === 0
   }
 
-  getCartItemCount(){
+  getCartItemCount() {
     return this._getCartData().items.length
   }
 
-  getCheckedItems(){
+  getCheckedItems() {
     const cartItems = this._getCartData().items
     let checkedCartItems = []
     cartItems.forEach(cartItem => {
-      if(cartItem.checked){
+      if (cartItem.checked) {
         checkedCartItems.push(cartItem)
       }
     });
     return checkedCartItems
   }
 
-  replaceItemCount(skuId,newCount){
+  replaceItemCount(skuId, newCount) {
     const oldItem = this._findEqualItem(skuId)
-    if(!oldItem){
+    if (!oldItem) {
       console.log("异常情况，更新CartItem中的数量不应找不到相应数据")
       return
     }
-    if(newCount < 1){
+    if (newCount < 1) {
       console.log("异常情况，cartItem中的count不可能小于1")
       return
     }
     oldItem.count = newCount
-    if(oldItem.count>=Cart.SKU_MAX_COUNT){
-      oldItem.count=Cart.SKU_MAX_COUNT
+    if (oldItem.count >= Cart.SKU_MAX_COUNT) {
+      oldItem.count = Cart.SKU_MAX_COUNT
     }
     this._refreshStorage()
   }
@@ -171,14 +181,34 @@ class Cart {
     return cartData.items.findIndex(item => item.skuId == skuId)
   }
 
-  _getSkuIds(){
+  _getSkuIds() {
     const cartData = this._getCartData()
-    if(cartData.items.length==0){
+    if (cartData.items.length == 0) {
       return []
     }
-    return cartData.items.map(item=>item.skuId)
+    return cartData.items.map(item => item.skuId)
   }
 
+  _refreshByServerData(serverData) {
+    const cartData = this._getCartData()
+    cartData.items.forEach(item => {
+      this._setLatestCartItem(item, serverData)
+    })
+  }
+
+  _setLatestCartItem(item, serverData) {
+    let removed = true
+    for (let sku of serverData) {
+      if (sku.id == item.skuId) {
+        removed = false
+        item.sku = sku
+        break
+      }
+    }
+    if (removed){
+      item.sku.online = false
+    }
+  }
 }
 
 export {

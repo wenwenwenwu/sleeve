@@ -19,8 +19,9 @@ Page({
   },
 
   // LifeCycle
-  onLoad: function (options) {
-    cart.getAllSkuFromServer()
+  onLoad: async function (options) {
+    //与服务器同步
+    await cart.getAllSkuFromServer()
   },
 
   onShow: function () {
@@ -69,6 +70,14 @@ Page({
     this.refreshCartData()
   },
 
+  onSettle(){
+    if(this.data.totalSkuCount <= 0){
+      return
+    }
+    wx.navigateTo({
+      url: '/pages/order/index',
+    })
+  },
 
   // Method
   empty() {

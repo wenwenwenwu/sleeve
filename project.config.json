@@ -23,11 +23,11 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.1",
+	"libVersion": "2.11.1",
 	"appid": "wx0497b17ba741250b",
 	"projectname": "%E9%A3%8E%E8%A2%96",
 	"debugOptions": {
@@ -85,6 +85,13 @@
 					"id": -1,
 					"name": "pages/cart/index",
 					"pathName": "pages/cart/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/order/index",
+					"pathName": "pages/order/index",
 					"scene": null
 				}
 			]

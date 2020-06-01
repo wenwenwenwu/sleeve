@@ -1,7 +1,7 @@
 <!--pages/cart/index.wxml-->
 <view class="container">
 	<view wx:if="{{!isEmpty}}" class="cart-container">
-		<block wx:for="{{cartItems}}">
+		<block wx:for="{{cartItems}}" wx:key="index">
 			<c-cart-item cartItem="{{item}}" bind:itemDelete="onDeleteItem" bind:itemCheck="onSingleCheck" bind:countFloat="onCountFloat">
 			</c-cart-item>
 		</block>

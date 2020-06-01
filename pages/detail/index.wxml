@@ -21,7 +21,7 @@
 		<c-sale-explain texts="{{explain}}"></c-sale-explain>
 	</view>
 	<view class="detail-img-container">
-		<block wx:for="{{spu.spu_detail_img_list}}" wx:key="{{index}}">
+		<block wx:for="{{spu.spu_detail_img_list}}" wx:key="index">
 			<image class="detail-img" src="{{item.img}}" style="widthFix"></image>
 		</block>
 	</view>

@@ -1,0 +1,4 @@
+<!--pages/order/index.wxml-->
+<view class="container">
+<c-address></c-address>
+</view>
