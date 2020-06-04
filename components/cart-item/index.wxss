@@ -129,6 +129,13 @@
   align-items: center;
 }
 
+.right{
+  flex: 1;
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+}
+
 .slide{
   color: #ffffff;
   background-color:#9E2731;
@@ -139,16 +146,15 @@
   align-items:center;
   justify-content:center;
 }
-/* 
-
 
 .disabled{
   opacity: 0.5;
 }
 
 .sold-out{
+  background-color: greenyellow;
   position: absolute;
   height:160rpx;
   width: 620rpx;
-} */
+}
 

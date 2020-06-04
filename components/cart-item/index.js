@@ -6,6 +6,7 @@ import {
 } from "../../models/cart"
 
 const cart = new Cart()
+
 // components/cart-item/index.js
 Component({
 
@@ -18,7 +19,7 @@ Component({
     discount: Boolean,
     soldOut: Boolean,
     online: Boolean,
-    stock: Cart.SKU_MAX_COUNT,
+    stock: Number,
     count: 1,
   },
 

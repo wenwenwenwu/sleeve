@@ -23,7 +23,7 @@ class Cart {
   }
 
   static isSoldOut(cartItem) {
-    return cartItem.sku.store === 0
+    return cartItem.sku.stock === 0
   }
 
   static isOnline(cartItem) {

@@ -23,6 +23,12 @@ Component({
 
   },
 
+  observers:{
+    count:function(count){
+      console.log(count)
+    }
+  },
+
   /**
    * 组件的初始数据
    */

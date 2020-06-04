@@ -20,8 +20,12 @@ Page({
 
   // LifeCycle
   onLoad: async function (options) {
-    //与服务器同步
-    await cart.getAllSkuFromServer()
+    const cartData = await cart.getAllSkuFromServer()
+        if(cartData){
+            this.setData({
+                cartItems: cartData.items
+            })
+        }
   },
 
   onShow: function () {
