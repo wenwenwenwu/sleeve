@@ -14,6 +14,7 @@ import {
 import {
   Spu
 } from '../../models/spu.js'
+import { CouponCenterType } from '../../core/enum.js'
 
 Page({
 
@@ -58,6 +59,13 @@ Page({
 
   onShareAppMessage: function () {
 
+  },
+
+  onGoToCoupons(event){
+    const activityName = event.currentTarget.dataset.aname
+    wx.navigateTo({
+      url: `/pages/coupon/index?name=${activityName}&type=${CouponCenterType.ACTIVITY}`,
+    })
   },
 
   // Method

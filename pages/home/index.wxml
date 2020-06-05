@@ -10,7 +10,7 @@
 			</block>
 		</swiper>
 		<c-category-grid grid="{{grid}}" />
-		<image class="activity" src="{{activityD.entrance_img}}"></image>
+		<image class="activity" src="{{activityD.entrance_img}}" data-aname="a-2" bind:tap="onGoToCoupons"></image>
 		<c-spu-scroll wx:if="{{themeE.online}}" theme="{{themeE}}" spu-list="{{themeESPU}}" />
 		<image class="quality" src="{{themeF.entrance_img}}"></image>
 		<c-hot-list banner="{{bannerG}}" />
