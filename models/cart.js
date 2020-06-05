@@ -125,6 +125,29 @@ class Cart {
     this._refreshStorage()
   }
 
+  getCheckedSkuIds(){
+    const cartData = this._getCartData()
+    if(cartData.items.length===0){
+      return[]
+    }
+    let skuIds = []
+    cartData.items.forEach(item=>{
+      if(item.checked){
+        skuIds.push(item.sku.id)
+      }
+      return skuIds
+    })
+  }
+
+  getSkuCountBySkuId(skuId){
+    const cartData = this._getSkuIds()
+    const item = cartData.items.find((item)=>item.id===skuId)
+    if(!item){
+      console.log("在订单里寻找CartItem时不应当出现找不到的情况")
+    }
+    return item.count
+  }
+
   _beyoundMaxCartItemCount() {
     const cartData = this._getCartData()
     return cartData.items.length >= Cart.CART_ITEM_MAX_COUNT
