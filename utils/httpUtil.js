@@ -1,10 +1,12 @@
 import {
-  config
-} from '../config/config'
-
-import {
   promisic
 } from '../miniprogram_npm/lin-ui/utils/util.js'
+import {
+  codes
+} from '../config/config-exception';
+import {
+  config
+} from '../config/config.js';
 
 class HttpUtil {
 
@@ -17,7 +19,7 @@ class HttpUtil {
     let res;
     try {
       res = await promisic(wx.request)({
-        url: `${config.apiBaseUrl}${url}`,
+        url: `http://localhost:8081/v1/${url}`,
         data,
         method,
         header: {
@@ -27,11 +29,7 @@ class HttpUtil {
         }
       })
     } catch (e) {
-      // if (throwError) {
-      //   throw new HttpException(-1, codes[-1])
-      // }
-      // Http.showError(-1)
-      // return null
+      HttpUtil._showError(-1)
     }
     const code = res.statusCode.toString()
     //请求成功
@@ -42,7 +40,7 @@ class HttpUtil {
       if (code === '401') {
         // 重新请求（只做一次）
         if (!data.refetched) {
-          Http._refetch({
+          HttpUtil._refetch({
             url,
             data,
             method
@@ -59,7 +57,7 @@ class HttpUtil {
           return res.data
         }
         const error_code = res.data.code;
-        Http.showError(error_code, res.data)
+        HttpUtil._showError(error_code, res.data)
       }
       // 403 404 500
     }
@@ -70,7 +68,26 @@ class HttpUtil {
     const token = new Token()
     await token.getTokenFromServer()
     data.refetched = true
-    return await Http.request(data)
+    return await HttpUtil.request(data)
+  }
+
+  static _showError(error_code, serverError) {
+    let tip
+
+    if (!error_code) {
+      tip = codes[9999]
+    } else {
+      if (codes[error_code] === undefined) {
+        tip = serverError.message
+      } else {
+        tip = codes[error_code]
+      }
+    }
+    wx.showToast({
+      icon: "none",
+      duration: 3000,
+      title: tip,
+    })
   }
 }
 

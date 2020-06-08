@@ -8,8 +8,8 @@ import {
 class Token {
 
   constructor() {
-    this.tokenUrl = config.apiBaseUrl + "token"
-    this.verifyUrl = config.apiBaseUrl + "token/verify"
+    this.tokenUrl = config.apiBasicUrl + "token"
+    this.verifyUrl = config.apiBasicUrl + "token/verify"
   }
 
   //只是验证，token不存在或者过期的话重新获取并保存本地，无需返回token值
