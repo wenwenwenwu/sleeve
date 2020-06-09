@@ -62,3 +62,7 @@ class OrderItem {
     }
   }
 }
+
+export {
+  OrderItem
+}

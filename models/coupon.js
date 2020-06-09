@@ -13,9 +13,15 @@ class Coupon {
 
   static async getCouponsByCategory(cid) {
     return await HttpUtil.request({
-        url: `coupon/by/category/${cid}`,
+      url: `coupon/by/category/${cid}`,
     })
-}
+  }
+
+  static async getMySelfWithCategory() {
+    return HttpUtil.request({
+      url: `coupon/myself/available/with_category`
+    })
+  }
 
   static async getTop2CouponsByCategory(cid) {
     let coupons = await HttpUtil.request({
@@ -50,9 +56,9 @@ class Coupon {
 
   static async getWholeStoreCoupons() {
     return HttpUtil.request({
-        url: `coupon/whole_store`
+      url: `coupon/whole_store`
     })
-}
+  }
 }
 
 export {

@@ -1,6 +1,18 @@
-import { Cart } from "../../models/cart"
-import { Sku } from "../../models/sku"
-import { Order } from "../../models/order"
+import {
+  Cart
+} from "../../models/cart"
+import {
+  Sku
+} from "../../models/sku"
+import {
+  Order
+} from "../../models/order"
+import {
+  Coupon
+} from "../../models/coupon"
+import {
+  OrderItem
+} from "../../models/order-item"
 
 const cart = new Cart()
 // pages/order/index.js
@@ -10,35 +22,37 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+
   },
 
   // LifeCycle
-  onLoad: function (options) {
+  onLoad: async function (options) {
     let orderItems
     let localItemCount
     const skuIds = cart.getCheckedSkuIds()
-    orderItems = this.getCartOrderItems(skuIds)
-    localItemCount = skuIds.count
-    const order = new Order(orderItem,localItemCount)
+    orderItems = await this.getCartOrderItems(skuIds)
+    localItemCount = skuIds.length
+    const order = new Order(orderItems, localItemCount)
     try {
       order.checkOrderIsOK()
     } catch (error) {
       console.log(error)
     }
+    const coupons = await Coupon.getMySelfWithCategory()
+    console.log(coupons)
   },
 
   // Method
-  async getCartOrderItems(skuIds){
+  async getCartOrderItems(skuIds) {
     const skus = await Sku.getSkuByIds(skuIds)
     const orderItems = this.packageOrderItems(skus)
     return orderItems
   },
 
-  packageOrderItems(skus){
-    skus.map(sku=>{
+  packageOrderItems(skus) {
+    return skus.map(sku => {
       const count = cart.getSkuCountBySkuId(sku.id)
-      return new orderItem(sku,count)
+      return new OrderItem(sku, count)
     })
   }
 })

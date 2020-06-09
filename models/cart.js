@@ -135,13 +135,13 @@ class Cart {
       if(item.checked){
         skuIds.push(item.sku.id)
       }
-      return skuIds
     })
+    return skuIds
   }
 
   getSkuCountBySkuId(skuId){
-    const cartData = this._getSkuIds()
-    const item = cartData.items.find((item)=>item.id===skuId)
+    const cartData = this._getCartData()
+    const item = cartData.items.find((item)=>item.skuId===skuId)
     if(!item){
       console.log("在订单里寻找CartItem时不应当出现找不到的情况")
     }
