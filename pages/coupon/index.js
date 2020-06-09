@@ -1,4 +1,6 @@
-import { Activity } from "../../models/activity"
+import {
+  Activity
+} from "../../models/activity"
 
 // pages/coupon/index.js
 Page({
@@ -16,9 +18,12 @@ Page({
   onLoad: async function (options) {
     const name = options.name
     const type = options.type
+    let coupons
     const activity = await Activity.getActivityWithCoupon(name)
-    const coupons = activity.coupons
-    console.log(coupons)
+    coupons = activity.coupons
+    this.setData({
+      coupons
+    })
   }
-  
+
 })

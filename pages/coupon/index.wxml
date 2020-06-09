@@ -1,2 +1,6 @@
 <!--pages/coupon/index.wxml-->
-<text>pages/coupon/index.wxml</text>
+<view class="container">
+	<block wx:for="{{coupons}}" wx:index="id">
+		<c-coupon coupon="{{item}}" status="0"></c-coupon>
+	</block>
+</view>
