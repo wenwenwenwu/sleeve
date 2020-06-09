@@ -3,6 +3,7 @@
     "c-spu-description": "/components/spu-description/index",
     "c-realm": "/components/realm/index",
     "c-tab-bar": "/components/tab-bar/index",
-    "c-sale-explain": "/components/sale-explain/index"
+    "c-sale-explain": "/components/sale-explain/index",
+    "c-coupon-mini":"/components/coupon-mini/index"
   }
 }

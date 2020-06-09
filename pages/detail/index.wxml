@@ -8,6 +8,18 @@
 		</block>
 	</swiper>
 	<c-spu-description spu="{{spu}}" />
+	<view bind:tap="onGoToCouponCenter" class="coupon-container" wx:if="{{coupons.length!=0}}">
+		<view class="coupon-left">
+			<block wx:for="{{coupons}}">
+				<c-coupon-mini text="{{item.title}}"></c-coupon-mini>
+			</block>
+		</view>
+		<view class="coupon-right">
+			<text>立即领取</text>
+			<l-icon name="right" color="#157658" size="24"></l-icon>
+		</view>
+	</view>
+
 	<view wx:if="{{!realm.isNoSpec}}" class="sku-pending" bindtap="onAddToCart">
 		<view class="specs">
 			<text wx:if="{{!realm.isSpecSelectCompleted}}">请选择：</text>

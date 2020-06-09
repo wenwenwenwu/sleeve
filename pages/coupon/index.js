@@ -1,6 +1,12 @@
 import {
   Activity
 } from "../../models/activity"
+import {
+  CouponCenterType
+} from "../../core/enum"
+import {
+  Coupon
+} from "../../models/coupon"
 
 // pages/coupon/index.js
 Page({
@@ -18,12 +24,19 @@ Page({
   onLoad: async function (options) {
     const name = options.name
     const type = options.type
+    const cid = options.cid
     let coupons
-    const activity = await Activity.getActivityWithCoupon(name)
-    coupons = activity.coupons
+    if (type === CouponCenterType.ACTIVITY) {
+      const activity = await Activity.getActivityWithCoupon(name)
+      coupons = activity.coupons
+    }
+    if (type === CouponCenterType.SPU_CATEGORY) {
+      coupons = await Coupon.getCouponsByCategory(cid)
+      const wholeStoreCoupons = await Coupon.getWholeStoreCoupons()
+      coupons = coupons.concat(wholeStoreCoupons)
+    }
     this.setData({
       coupons
     })
   }
-
 })

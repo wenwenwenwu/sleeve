@@ -3,7 +3,7 @@ import {
   Spu
 } from "../../models/spu"
 import {
-  ShoppingWay
+  ShoppingWay, CouponCenterType
 } from "../../core/enum"
 import {
   SaleExplain
@@ -12,10 +12,18 @@ import {
   px2rpx
 } from "../../miniprogram_npm/lin-ui/utils/util"
 import {
-  getSystemSize, getWindowHeightRPX
+  getSystemSize,
+  getWindowHeightRPX
 } from "../../utils/system"
-import { Cart } from "../../models/cart"
-import { CartItem } from "../../models/cart-item"
+import {
+  Cart
+} from "../../models/cart"
+import {
+  CartItem
+} from "../../models/cart-item"
+import {
+  Coupon
+} from "../../models/coupon"
 Page({
 
   /**
@@ -28,7 +36,8 @@ Page({
     realm: null,
     explain: [],
     scrollHeight: 0,
-    cartItemCount:0
+    cartItemCount: 0,
+    coupons:[]
   },
 
   /**
@@ -37,13 +46,15 @@ Page({
   onLoad: async function (options) {
     const pid = options.pid
     const spu = await Spu.getDetail(pid)
+    const coupons = await Coupon.getTop2CouponsByCategory(spu.category_id)
     const explain = await SaleExplain.getFixed()
     const windowHeightRPX = await getWindowHeightRPX()
     const scrollHeight = windowHeightRPX - 100
     this.setData({
       spu,
       explain,
-      scrollHeight
+      scrollHeight,
+      coupons
     })
     this.updateTabbarCartItemCount()
   },
@@ -82,19 +93,27 @@ Page({
     })
   },
 
-  onShopping(event){
+  onShopping(event) {
     const chosenSku = event.detail.sku
     const skuCount = event.detail.skuCount
-    if(event.detail.orderWay === ShoppingWay.CART){
+    if (event.detail.orderWay === ShoppingWay.CART) {
       const cart = new Cart()
-      const cartItem = new CartItem(chosenSku,skuCount)
+      const cartItem = new CartItem(chosenSku, skuCount)
       cart.addItem(cartItem)
       this.updateTabbarCartItemCount()
     }
   },
 
+  onGoToCouponCenter(event){
+    const type = CouponCenterType.SPU_CATEGORY
+    const cid = this.data.spu.category_id
+    wx.navigateTo({
+      url: `/pages/coupon/index?cid=${cid}&type=${type}`,
+    })
+  },
+
   // Method
-  updateTabbarCartItemCount(){
+  updateTabbarCartItemCount() {
     const cart = new Cart()
     this.setData({
       cartItemCount: cart.getCartItemCount(),
