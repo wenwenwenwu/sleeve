@@ -1,4 +1,9 @@
 <!--pages/order/index.wxml-->
 <view class="container">
 <c-address></c-address>
+<view class="order-item-container">
+        <block wx:for="{{orderItems}}" wx:key="{{item.sku.id}}">
+            <c-order-sku-item l-class="order-item" order-item="{{item}}"></c-order-sku-item>
+        </block>
+    </view>
 </view>

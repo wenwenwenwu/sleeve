@@ -13,6 +13,7 @@ import {
 import {
   OrderItem
 } from "../../models/order-item"
+import { CouponBO } from "../../models/coupon-bo"
 
 const cart = new Cart()
 // pages/order/index.js
@@ -22,7 +23,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    orderItems:[],
+    couponBOList:[]
   },
 
   // LifeCycle
@@ -39,7 +41,11 @@ Page({
       console.log(error)
     }
     const coupons = await Coupon.getMySelfWithCategory()
-    console.log(coupons)
+    const couponBOList = this.packageCouponBOList(coupons,order)
+    this.setData({
+      orderItems,
+      couponBOList
+    })
   },
 
   // Method
@@ -53,6 +59,13 @@ Page({
     return skus.map(sku => {
       const count = cart.getSkuCountBySkuId(sku.id)
       return new OrderItem(sku, count)
+    })
+  },
+
+  packageCouponBOList(coupons,order){
+    return coupons.map((coupon)=>{
+      const couponBO = new CouponBO(coupon)
+      return couponBO
     })
   }
 })

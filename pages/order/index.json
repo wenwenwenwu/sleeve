@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "c-address":"/components/address/index"
+    "c-address":"/components/address/index",
+    "c-order-sku-item":"/components/order-sku-item/index"
   }
 }

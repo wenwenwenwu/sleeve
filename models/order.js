@@ -11,7 +11,7 @@ class Order{
   }
 
   checkOrderIsOK(){
-    this.orderItemsforEach((item)=>{
+    this.orderItems.forEach((item)=>{
       item.isOK()
     })
   }
