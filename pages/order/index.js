@@ -16,9 +16,15 @@ import {
 import {
   CouponBO
 } from "../../models/coupon-bo"
-import { CouponOperate } from "../../core/enum"
+import {
+  CouponOperate
+} from "../../core/enum"
+import {
+  OrderPost
+} from "../../models/order-post"
 
 const cart = new Cart()
+
 // pages/order/index.js
 Page({
 
@@ -26,12 +32,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    finalTotalPrice:0,
-    discountMoney:0,
+    totalPrice: 0,
+    finalTotalPrice: 0,
+    discountMoney: 0,
     order: null,
     orderItems: [],
     couponBOList: [],
-    currentCouponId: null
+    currentCouponId: null,
+    address: null,
+    submitBtnDisable: false,
+    orderFail: false,
+    orderFailMsg: ""
   },
 
   // LifeCycle
@@ -52,31 +63,55 @@ Page({
     const couponBOList = this.packageCouponBOList(coupons, order)
     this.setData({
       totalPrice: order.getTotalPrice(),
-      finalTotalPrice:order.getTotalPrice(),
+      finalTotalPrice: order.getTotalPrice(),
       orderItems,
       couponBOList
     })
   },
 
   //Action
+  onChooseAddress(event) {
+    const address = event.detail.address
+    this.data.address = address
+  },
+
   onChooseCoupon(event) {
     const couponObj = event.detail.coupon
     const couponOperate = event.detail.operate
     if (couponOperate === CouponOperate.PICK) {
       this.data.currentCouponId = couponObj.id
       const priceObj = CouponBO.getFinalPrice(this.data.order.getTotalPrice(), couponObj)
-      console.log(priceObj)
       this.setData({
         finalTotalPrice: priceObj.finalPrice,
         discountMoney: priceObj.discountMoney
       })
-    }
-    else {
+    } else {
       this.data.currentCouponId = null
       this.setData({
         finalTotalPrice: this.data.order.getTotalPrice(),
         discountMoney: 0
       })
+    }
+  },
+
+  async onSubmit(event) {
+    if (!this.data.address) {
+      showToast("请选择收货地址")
+      return
+    }
+    this.disableSubmitBtn()
+    const order = this.data.order
+    const orderPost = new OrderPost(
+      this.data.totalPrice,
+      this.data.finalTotalPrice,
+      this.data.currentCouponId,
+      order.getOrderSkuInfoList(),
+      this.data.address
+    )
+    const oid = await this.postOrder(orderPost)
+    if(!oid){
+      this.enableSubmitBtn()
+      return
     }
   },
 
@@ -100,5 +135,31 @@ Page({
       couponBO.meetCondition(order)
       return couponBO
     })
+  },
+
+  disableSubmitBtn() {
+    this.setData({
+      submitBtnDisable: true
+    })
+  },
+
+  enableSubmitBtn(){
+    this.setData({
+      submitBtnDisable:false
+    })
+  },
+
+  async postOrder(orderPost) {
+    try {
+      const res = await Order.postOrderToServer(orderPost)
+      if (res) {
+        return res.id
+      }
+    } catch (error) {
+      this.setData({
+        orderFail: true,
+        orderFailMsg: error.message
+      })
+    }
   }
 })

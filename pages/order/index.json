@@ -2,6 +2,7 @@
   "usingComponents": {
     "c-address":"/components/address/index",
     "c-order-sku-item":"/components/order-sku-item/index",
-    "c-coupon-picker":"/components/coupon-picker/index"
+    "c-coupon-picker":"/components/coupon-picker/index",
+    "l-dialog":"/miniprogram_npm/lin-ui/dialog/index"
   }
 }

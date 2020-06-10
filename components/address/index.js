@@ -29,6 +29,9 @@ Component({
           address,
           hasChosen: true
         })
+        this.triggerEvent("address",{
+          address
+        })
       }
     }
   },
@@ -50,9 +53,6 @@ Component({
     },
 
     onDialogConfirm(){
-      this.setData({
-        
-      })
       wx.openSetting()
     },
 
@@ -69,6 +69,9 @@ Component({
           hasChosen: true
         })
         Address.setLocal(res)
+        this.triggerEvent("address",{
+          address:res
+        })
       }
     },
 

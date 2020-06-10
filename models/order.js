@@ -7,6 +7,9 @@ import {
 import {
   accAdd
 } from "../utils/number"
+import {
+  HttpUtil
+} from "../utils/httpUtil"
 
 class Order {
   orderItems //服务端最新获取的
@@ -15,6 +18,15 @@ class Order {
   constructor(orderItems, localItemCount) {
     this.orderItems = orderItems
     this.localItemCount = localItemCount
+  }
+
+  static async postOrderToServer(orderPost) {
+    return await HttpUtil.request({
+      "url": "order",
+      method: "POST",
+      data: orderPost,
+      throwError: true
+    })
   }
 
   checkOrderIsOK() {
@@ -28,12 +40,21 @@ class Order {
     this._containNotOnSaleItem()
   }
 
+  getOrderSkuInfoList() {
+    return this.orderItems.map(item => {
+      return {
+        id: item.skuId,
+        count: item.count
+      }
+    })
+  }
+
   getTotalPrice() {
     return this.orderItems.reduce((pre, item) => {
-        const price = accAdd(pre, item.finalPrice)
-        return price
+      const price = accAdd(pre, item.finalPrice)
+      return price
     }, 0)
-}
+  }
 
   getTotalPriceByCategoryIdList(categoryIdList) {
     if (categoryIdList.length === 0) {
@@ -56,6 +77,7 @@ class Order {
     }, 0)
     return price
   }
+
 
   _emptyOrder() {
     if (this.orderItems.length === 0) {

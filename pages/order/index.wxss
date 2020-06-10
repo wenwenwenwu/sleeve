@@ -90,3 +90,7 @@
 .submit {
   border-radius: 0 !important;
 }
+
+.dialog-confirm {
+  color: #9E2731 !important;
+}
