@@ -13,7 +13,10 @@ import {
 import {
   OrderItem
 } from "../../models/order-item"
-import { CouponBO } from "../../models/coupon-bo"
+import {
+  CouponBO
+} from "../../models/coupon-bo"
+import { CouponOperate } from "../../core/enum"
 
 const cart = new Cart()
 // pages/order/index.js
@@ -23,8 +26,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderItems:[],
-    couponBOList:[]
+    finalTotalPrice:0,
+    discountMoney:0,
+    order: null,
+    orderItems: [],
+    couponBOList: [],
+    currentCouponId: null
   },
 
   // LifeCycle
@@ -35,17 +42,42 @@ Page({
     orderItems = await this.getCartOrderItems(skuIds)
     localItemCount = skuIds.length
     const order = new Order(orderItems, localItemCount)
+    this.data.order = order
     try {
       order.checkOrderIsOK()
     } catch (error) {
       console.log(error)
     }
     const coupons = await Coupon.getMySelfWithCategory()
-    const couponBOList = this.packageCouponBOList(coupons,order)
+    const couponBOList = this.packageCouponBOList(coupons, order)
     this.setData({
+      totalPrice: order.getTotalPrice(),
+      finalTotalPrice:order.getTotalPrice(),
       orderItems,
       couponBOList
     })
+  },
+
+  //Action
+  onChooseCoupon(event) {
+    const couponObj = event.detail.coupon
+    const couponOperate = event.detail.operate
+    if (couponOperate === CouponOperate.PICK) {
+      this.data.currentCouponId = couponObj.id
+      const priceObj = CouponBO.getFinalPrice(this.data.order.getTotalPrice(), couponObj)
+      console.log(priceObj)
+      this.setData({
+        finalTotalPrice: priceObj.finalPrice,
+        discountMoney: priceObj.discountMoney
+      })
+    }
+    else {
+      this.data.currentCouponId = null
+      this.setData({
+        finalTotalPrice: this.data.order.getTotalPrice(),
+        discountMoney: 0
+      })
+    }
   },
 
   // Method
@@ -62,9 +94,10 @@ Page({
     })
   },
 
-  packageCouponBOList(coupons,order){
-    return coupons.map((coupon)=>{
+  packageCouponBOList(coupons, order) {
+    return coupons.map((coupon) => {
       const couponBO = new CouponBO(coupon)
+      couponBO.meetCondition(order)
       return couponBO
     })
   }

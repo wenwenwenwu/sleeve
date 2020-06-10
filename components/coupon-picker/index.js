@@ -1,6 +1,10 @@
 // components/coupon-picker/index.js
-import {getSlashYMD} from "../../utils/date";
-import {CouponOperate} from "../../core/enum";
+import {
+    getSlashYMD
+} from "../../utils/date";
+import {
+    CouponOperate
+} from "../../core/enum";
 
 Component({
     /**
@@ -18,7 +22,6 @@ Component({
             }
             const couponsView = this.convertToView(coupons)
             const satisfactionCount = this.getSatisfactionCount(coupons)
-            console.log(couponsView)
             this.setData({
                 _coupons: couponsView,
                 satisfactionCount

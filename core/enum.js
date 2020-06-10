@@ -31,9 +31,9 @@ const OrderExceptionType = {
   EMPTY: 'empty'
 }
 
-const CouponCenterType={
-  ACTIVITY:"activity",
-  SPU_CATEGORY:"spu_category"
+const CouponCenterType = {
+  ACTIVITY: "activity",
+  SPU_CATEGORY: "spu_category"
 }
 
 const CouponStatus = {
@@ -43,6 +43,17 @@ const CouponStatus = {
   EXPIRED: 3
 }
 
+const CouponType = {
+  FULL_MINUS: 1,
+  FULL_OFF: 2,
+  NO_THRESHOLD_MINUS: 3
+}
+
+const CouponOperate = {
+  PICK: "pick",
+  UNPICK: "unpick"
+}
+
 export {
   CellStatus,
   ShoppingWay,
@@ -50,5 +61,7 @@ export {
   AuthAddress,
   OrderExceptionType,
   CouponCenterType,
-  CouponStatus
+  CouponStatus,
+  CouponType,
+  CouponOperate
 }

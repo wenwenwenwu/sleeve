@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "c-address":"/components/address/index",
-    "c-order-sku-item":"/components/order-sku-item/index"
+    "c-order-sku-item":"/components/order-sku-item/index",
+    "c-coupon-picker":"/components/coupon-picker/index"
   }
 }
