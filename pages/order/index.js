@@ -24,9 +24,9 @@ import {
 } from "../../models/order-post"
 import { Payment } from "../../models/payment"
 
-import{
+import {
   showToast
-}from"../../utils/ui.js"
+} from "../../utils/ui.js"
 
 const cart = new Cart()
 
@@ -48,7 +48,8 @@ Page({
     submitBtnDisable: false,
     orderFail: false,
     orderFailMsg: "",
-    shoppingWay: ShoppingWay.CART
+    shoppingWay: ShoppingWay.CART,
+    isOK: true
   },
 
   // LifeCycle
@@ -64,7 +65,9 @@ Page({
     try {
       order.checkOrderIsOK()
     } catch (error) {
-      console.log(error)
+      this.setData({
+        isOK: false
+      })
     }
     const coupons = await Coupon.getMySelfWithCategory()
     const couponBOList = this.packageCouponBOList(coupons, order)
@@ -115,7 +118,7 @@ Page({
       order.getOrderSkuInfoList(),
       this.data.address
     )
-    console.log(orderPost)
+    //第一次请求（向服务端提交订单）
     const oid = await this.postOrder(orderPost)
     if (!oid) {
       this.enableSubmitBtn()
@@ -124,11 +127,31 @@ Page({
     if (this.data.shoppingWay === ShoppingWay.CART) {
       cart.removeCheckedItems()
     }
+    wx.lin.showLoading({
+      type: "flash",
+      fullScreen: true,
+      color: "#157658"
+  })
+    //第二次请求（向服务端提交oid）
     const payParams = await Payment.getPayParams(oid)
     if (!payParams) {
       return
     }
-    const res = wx.requestPayment(payParams)
+    //第三次请求（向微信提交数字签名）
+    //支付成功
+    try {
+      const res = await wx.requestPayment(payParams)
+      wx.redirectTo({
+        url: `/pages/pay-success/index?oid=${oid}`,
+      })
+    //支付失败
+    } catch (error) {
+      wx.redirectTo({
+        url: `/pages/my-order/index`,
+
+      })
+    }
+    
     console.log(res)
   },
 

@@ -8,7 +8,9 @@
     "pages/search/index",
     "pages/spu-list/index",
     "pages/order/index",
-    "pages/coupon/index"
+    "pages/coupon/index",
+    "pages/pay-success/index",
+    "pages/my-order/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -71,6 +73,6 @@
     "c-spu-preview": "/components/spu-preview/index",
     "c-counter": "/components/counter/index",
     "c-address": "/components/address/index",
-    "c-coupon":"/components/coupon/index"
+    "c-coupon": "/components/coupon/index"
   }
 }
