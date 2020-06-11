@@ -17,11 +17,16 @@ import {
   CouponBO
 } from "../../models/coupon-bo"
 import {
-  CouponOperate
+  CouponOperate, ShoppingWay
 } from "../../core/enum"
 import {
   OrderPost
 } from "../../models/order-post"
+import { Payment } from "../../models/payment"
+
+import{
+  showToast
+}from"../../utils/ui.js"
 
 const cart = new Cart()
 
@@ -42,13 +47,15 @@ Page({
     address: null,
     submitBtnDisable: false,
     orderFail: false,
-    orderFailMsg: ""
+    orderFailMsg: "",
+    shoppingWay: ShoppingWay.CART
   },
 
   // LifeCycle
   onLoad: async function (options) {
     let orderItems
     let localItemCount
+    this.data.shoppingWay = options.way
     const skuIds = cart.getCheckedSkuIds()
     orderItems = await this.getCartOrderItems(skuIds)
     localItemCount = skuIds.length
@@ -70,7 +77,7 @@ Page({
   },
 
   //Action
-  onChooseAddress(event) {
+  onChooseAdddress(event) {
     const address = event.detail.address
     this.data.address = address
   },
@@ -108,11 +115,21 @@ Page({
       order.getOrderSkuInfoList(),
       this.data.address
     )
+    console.log(orderPost)
     const oid = await this.postOrder(orderPost)
-    if(!oid){
+    if (!oid) {
       this.enableSubmitBtn()
       return
     }
+    if (this.data.shoppingWay === ShoppingWay.CART) {
+      cart.removeCheckedItems()
+    }
+    const payParams = await Payment.getPayParams(oid)
+    if (!payParams) {
+      return
+    }
+    const res = wx.requestPayment(payParams)
+    console.log(res)
   },
 
   // Method
@@ -143,9 +160,9 @@ Page({
     })
   },
 
-  enableSubmitBtn(){
+  enableSubmitBtn() {
     this.setData({
-      submitBtnDisable:false
+      submitBtnDisable: false
     })
   },
 

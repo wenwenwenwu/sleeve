@@ -24,15 +24,15 @@ class OrderItem {
   constructor(sku, count) {
     this.title = sku.title
     this.img = sku.img
-    this.skuId = sku.skuId
+    this.skuId = sku.id
     this.stock = sku.stock
     this.online = sku.online
-    this.categoryId = sku.categoryId
-    this.rootCategoryId = sku.rootCategoryId
+    this.categoryId = sku.category_id
+    this.rootCategoryId = sku.root_category_id
     this.count = count
     this.singleFinalPrice = this.ensureFinalSinglePrice(sku)
     this.finalPrice = accMultiply(this.count, this.singleFinalPrice)
-    this.spces = sku.spces
+    this.spces = sku.specs
   }
 
   ensureFinalSinglePrice(sku) {

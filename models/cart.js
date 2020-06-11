@@ -78,7 +78,7 @@ class Cart {
 
   async getAllSkuFromServer() {
     const cartData = this._getCartData()
-    if(cartData.items.length === 0){
+    if (cartData.items.length === 0) {
       return null
     }
     const skuIds = this._getSkuIds()
@@ -125,27 +125,37 @@ class Cart {
     this._refreshStorage()
   }
 
-  getCheckedSkuIds(){
+  getCheckedSkuIds() {
     const cartData = this._getCartData()
-    if(cartData.items.length===0){
-      return[]
+    if (cartData.items.length === 0) {
+      return []
     }
     let skuIds = []
-    cartData.items.forEach(item=>{
-      if(item.checked){
+    cartData.items.forEach(item => {
+      if (item.checked) {
         skuIds.push(item.sku.id)
       }
     })
     return skuIds
   }
 
-  getSkuCountBySkuId(skuId){
+  getSkuCountBySkuId(skuId) {
     const cartData = this._getCartData()
-    const item = cartData.items.find((item)=>item.skuId===skuId)
-    if(!item){
+    const item = cartData.items.find((item) => item.skuId === skuId)
+    if (!item) {
       console.log("在订单里寻找CartItem时不应当出现找不到的情况")
     }
     return item.count
+  }
+
+  removeCheckedItems() {
+    const cartData = this._getCartData()
+    for (let i = 0; i < cartData.items.length; i++) {
+      if (cartData.items[i].checked) {
+        cartData.items.splice(i, 1)
+      }
+    }
+    this._refreshStorage()
   }
 
   _beyoundMaxCartItemCount() {
@@ -228,7 +238,7 @@ class Cart {
         break
       }
     }
-    if (removed){
+    if (removed) {
       item.sku.online = false
     }
   }

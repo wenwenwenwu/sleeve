@@ -4,6 +4,7 @@ import {
 import {
   Calculator
 } from "../../models/calculator"
+import { ShoppingWay } from "../../core/enum"
 
 const cart = new Cart()
 
@@ -79,7 +80,7 @@ Page({
       return
     }
     wx.navigateTo({
-      url: '/pages/order/index',
+      url: `/pages/order/index?way=${ShoppingWay.CART}`,
     })
   },
 

@@ -1,6 +1,6 @@
 <!--pages/order/index.wxml-->
 <view class="container">
-	<c-address bind:address="{{onChooseAddress}}"></c-address>
+	<c-address bind:address="onChooseAdddress"></c-address>
 	<view class="order-item-container">
 		<block wx:for="{{orderItems}}" wx:key="id">
 			<c-order-sku-item l-class="order-item" order-item="{{item}}"></c-order-sku-item>
